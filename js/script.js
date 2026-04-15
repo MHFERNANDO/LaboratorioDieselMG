@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeAnimations();
     initializeCounters();
     initializeGallery();
+    initializeSpeedDial();
+    initializeMobileNav();
 });
 
 // ============================================
@@ -500,3 +502,75 @@ function sendWhatsapp(service) {
 document.addEventListener('DOMContentLoaded', () => {
     initializeContactForm();
 });
+
+// ============================================
+// SPEED-DIAL WHATSAPP
+// ============================================
+
+function initializeSpeedDial() {
+    const dial    = document.getElementById('waSpeedDial');
+    const trigger = document.getElementById('waSpeedDialTrigger');
+
+    if (!dial || !trigger) return;
+
+    trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = dial.classList.toggle('open');
+        trigger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Cerrar al hacer click fuera
+    document.addEventListener('click', function(e) {
+        if (!dial.contains(e.target)) {
+            dial.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Cerrar al presionar Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            dial.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+// ============================================
+// MENÚ MÓVIL (HAMBURGER)
+// ============================================
+
+function initializeMobileNav() {
+    const btn = document.getElementById('mobileMenuBtn');
+    const nav = document.getElementById('mobileNav');
+
+    if (!btn || !nav) return;
+
+    function openMenu() {
+        btn.classList.add('open');
+        nav.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        nav.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeMenu() {
+        btn.classList.remove('open');
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        nav.setAttribute('aria-hidden', 'true');
+    }
+
+    btn.addEventListener('click', function() {
+        btn.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    // Cerrar al hacer click en cualquier enlace del menú
+    nav.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Cerrar con Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+}

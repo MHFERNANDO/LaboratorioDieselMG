@@ -3,22 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio Diesel MG - Diagnóstico y Calibración de Bombas e Inyectores</title>
+    <title>Laboratorio Diesel MG – Diagnóstico, Inyectores y Bombas Diesel</title>
+    <meta name="description" content="Con 10 años de trayectoria, Laboratorio Diesel MG es especialista en diagnóstico computarizado, limpieza y calibración de inyectores, y reparación de bombas de inyección diesel.">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Navegación -->
+
+    <!-- ── Navegación ─────────────────────────────── -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
-                <div class="logo">
-                    <div class="logo-text">
-                        <span class="logo-diesel">Diesel</span>
-                        <span class="logo-mg">MG</span>
+
+                <!-- Logo solo letras -->
+                <a href="#inicio" class="logo">
+                    <div class="logo-text-block">
+                        <div class="logo-text">
+                            <span class="logo-diesel">Diesel</span>
+                            <span class="logo-mg">MG</span>
+                        </div>
+                        <p class="logo-subtitle">Laboratory</p>
                     </div>
-                    <p class="logo-subtitle">Laboratory</p>
-                </div>
+                </a>
+
                 <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#equipos">Equipos</a></li>
+                    <li><a href="#galeria">Galería</a></li>
+                    <li><a href="#precios">Precios</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contacto-form">Contacto</a></li>
+                </ul>
+
+                <!-- Botón Menú Móvil -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <!-- Panel nav móvil -->
+            <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+                <ul>
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#equipos">Equipos</a></li>
@@ -31,164 +58,217 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- ── Hero ───────────────────────────────────── -->
     <section id="inicio" class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h2>Diagnóstico y Calibración Profesional de Sistemas Diesel</h2>
-                <p>Especializados en bombas lineales, rotativas y Common Rail con equipos de precisión de clase mundial</p>
+            <div class="hero-content" data-aos="fade-right">
+                <span class="hero-badge">10 años de trayectoria</span>
+                <h1>Diagnóstico y Calibración<span>Profesional Diesel</span></h1>
+                <p>Especializados en inyectores Common Rail, UI, UP y bombas diesel con equipos de precisión de clase mundial. Su vehículo es su herramienta de trabajo — cuídela con los mejores.</p>
                 <div class="hero-buttons">
-                    <a href="https://wa.me/593" class="btn btn-primary">Cotizar por WhatsApp</a>
+                    <a href="https://wa.me/593" class="btn btn-primary">💬 Cotizar por WhatsApp</a>
                     <a href="#servicios" class="btn btn-secondary">Ver Servicios</a>
                 </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <strong>+500</strong>
+                        <span>Vehículos reparados</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>10</strong>
+                        <span>Años de experiencia</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>98%</strong>
+                        <span>Clientes satisfechos</span>
+                    </div>
+                </div>
             </div>
-            <div class="hero-image">
-                <div class="placeholder-image">
-                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="400" height="300" fill="#2a2a2a"/>
-                        <circle cx="200" cy="150" r="60" fill="#c41e3a"/>
-                        <circle cx="200" cy="150" r="45" fill="#e63946"/>
-                        <path d="M 200 105 L 230 165 L 170 165 Z" fill="#1a1a1a"/>
-                        <rect x="80" y="200" width="240" height="30" rx="5" fill="#808080"/>
-                    </svg>
+
+            <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
+                <div class="hero-visual">
+                    <div class="hero-visual-card">
+                        <span class="hero-icon-large">⚙️</span>
+                        <h3>Tecnología de Punta</h3>
+                        <p>Bancos Speedman y Dayel para diagnósticos con máxima precisión y confiabilidad</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Acerca De -->
+    <!-- ── Acerca De ──────────────────────────────── -->
     <section id="acerca" class="about">
         <div class="container">
-            <h2>¿Quiénes Somos?</h2>
             <div class="about-content">
-                <div class="about-text">
-                    <p>En Laboratorio Diesel MG somos expertos en diagnóstico, calibración y reparación de sistemas diesel. Con más de años de experiencia, nos hemos posicionado como referentes en la industria de vehículos pesados.</p>
-                    <p>Nuestro compromiso es garantizar el máximo rendimiento y durabilidad de tus sistemas diesel mediante tecnología de punta y personal altamente capacitado.</p>
+                <div class="about-text" data-aos="fade-up">
+                    <span class="about-tag">¿Quiénes Somos?</span>
+                    <h2>Con 10 años respaldando su motor</h2>
+                    <p>En <strong>Laboratorio Diesel MG</strong> sabemos que su vehículo es su herramienta de trabajo. Por eso, invertimos en el mejor equipo técnico y capacitación constante para detectar cualquier falla con total exactitud.</p>
+                    <p>Contamos con un amplio stock de repuestos originales para garantizar la mayor durabilidad y, si lo prefiere, gestionamos repuestos alternos de alta calidad según su necesidad.</p>
+                    <p>Somos expertos en diagnóstico, calibración y reparación de sistemas diesel — referentes en la industria de vehículos pesados con un equipo altamente capacitado y comprometido.</p>
                 </div>
+
                 <div class="about-features">
-                    <div class="feature-item">
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
                         <div class="feature-icon">⚙️</div>
-                        <h3>Precisión Técnica</h3>
-                        <p>Equipos certificados y calibrados</p>
+                        <div>
+                            <h3>Precisión Técnica</h3>
+                            <p>Equipos certificados y calibrados internacionalmente</p>
+                        </div>
                     </div>
-                    <div class="feature-item">
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
                         <div class="feature-icon">🔧</div>
-                        <h3>Experiencia Comprobada</h3>
-                        <p>Profesionales especializados</p>
+                        <div>
+                            <h3>Experiencia Comprobada</h3>
+                            <p>10 años formando profesionales especializados</p>
+                        </div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">✓</div>
-                        <h3>Garantía de Calidad</h3>
-                        <p>Trabajo garantizado y confiable</p>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon">🛡️</div>
+                        <div>
+                            <h3>Garantía de Calidad</h3>
+                            <p>Repuestos originales y trabajo garantizado</p>
+                        </div>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon">📦</div>
+                        <div>
+                            <h3>Stock de Repuestos</h3>
+                            <p>Originales y alternos de alta calidad disponibles</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Servicios -->
+    <!-- ── Servicios ──────────────────────────────── -->
     <section id="servicios" class="services">
         <div class="container">
-            <h2>Nuestros Servicios</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Lo que hacemos</span>
+                <h2>Nuestros <span>Servicios</span></h2>
+                <p>Soluciones completas para el sistema de inyección diesel de su vehículo</p>
+            </div>
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">💉</div>
-                    <h3>Diagnóstico de Bombas</h3>
-                    <p>Análisis completo de bombas lineales, rotativas y Common Rail con equipos de precisión</p>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="service-num">01</span>
+                    <h3>Diagnóstico Computarizado de Inyección</h3>
+                    <p>Utilizamos escáneres y equipos de diagnóstico de última generación para identificar con precisión fallas en el sistema de inyección electrónica. Ahorre tiempo y dinero con diagnósticos exactos desde la primera revisión.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🧹</div>
-                    <h3>Limpieza de Inyectores</h3>
-                    <p>Limpieza profunda de inyectores mecánicos y electrónicos para restaurar rendimiento</p>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="service-num">02</span>
+                    <h3>Mantenimiento y Reparación de Inyectores</h3>
+                    <p>Especialistas en la limpieza, calibración y reparación de inyectores mecánicos, Common Rail, UI y UP. Devolvemos el rendimiento original a sus componentes siguiendo estrictos estándares del fabricante.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🔄</div>
-                    <h3>Calibración y Reparación</h3>
-                    <p>Calibración precisa de bombas e inyectores con estándares internacionales</p>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="service-num">03</span>
+                    <h3>Servicio de Bombas de Inyección</h3>
+                    <p>Contamos con bancos de prueba modernos para la revisión y ajuste de bombas de inyección diesel. Aseguramos la presión y el flujo correctos para un funcionamiento óptimo del motor.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🔧</div>
-                    <h3>Cambio de Filtros</h3>
-                    <p>Reemplazo de filtros de combustible con aditivos limpiadores premium</p>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="service-num">04</span>
+                    <h3>Análisis de Fallas en el Sistema de Combustible</h3>
+                    <p>Evaluamos todo el circuito de combustible para detectar contaminantes, fugas o pérdidas de presión que afecten el desempeño de su unidad.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">⏱️</div>
-                    <h3>Puesta a Tiempo del Motor</h3>
-                    <p>Ajuste preciso del sistema de inyección para rendimiento óptimo</p>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="service-num">05</span>
+                    <h3>Asesoría Técnica Especializada</h3>
+                    <p>Nuestro personal capacitado le brindará recomendaciones preventivas para prolongar la vida útil de su sistema diesel, respaldados por una década de trayectoria en el mercado.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">🌪️</div>
-                    <h3>Revisión de Turbos</h3>
-                    <p>Inspección y mantenimiento de sistemas turboalimentados</p>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="service-num">06</span>
+                    <h3>Revisión de Turbos y Sistemas Auxiliares</h3>
+                    <p>Inspección y mantenimiento de sistemas turboalimentados y demás componentes relacionados con el circuito de inyección y la puesta a tiempo del motor.</p>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Sección Equipos -->
+    <!-- ── Equipos ────────────────────────────────── -->
     <section id="equipos" class="equipment">
         <div class="container">
-            <h2>Equipos de Diagnóstico de Clase Mundial</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Tecnología</span>
+                <h2>Equipos de <span>Clase Mundial</span></h2>
+                <p>Herramientas de diagnóstico de última generación para garantizar precisión en cada trabajo</p>
+            </div>
             <div class="equipment-content">
-                <div class="equipment-item">
+                <div class="equipment-item" data-aos="fade-up" data-aos-delay="100">
                     <h3>🏭 Banco Speedman (Brasil)</h3>
                     <p>Equipo brasilero de prueba de bombas diesel con máxima precisión. Realiza pruebas completas de caudal, presión y atomización de combustible.</p>
                 </div>
-                <div class="equipment-item">
+                <div class="equipment-item" data-aos="fade-up" data-aos-delay="200">
                     <h3>🏭 Banco Dayel (Turquía)</h3>
                     <p>Analizador turco de inyectores diesel de última generación. Garantiza la precisión en cada diagnóstico y reparación de inyectores.</p>
                 </div>
-                <div class="equipment-item">
+                <div class="equipment-item" data-aos="fade-up" data-aos-delay="300">
                     <h3>📊 Simulador VP44</h3>
-                    <p>Sistema especializado para bombas VP44. Simula condiciones reales de funcionamiento para validar reparaciones.</p>
+                    <p>Sistema especializado para bombas VP44. Simula condiciones reales de funcionamiento para validar reparaciones con exactitud.</p>
                 </div>
-                <div class="equipment-item">
+                <div class="equipment-item" data-aos="fade-up" data-aos-delay="400">
                     <h3>🔊 Ultrasonido para Inyectores</h3>
-                    <p>Limpieza ultrasónica de inyectores a gasolina. Elimina depósitos de carbón sin dañar componentes precisos.</p>
+                    <p>Limpieza ultrasónica de inyectores a gasolina. Elimina depósitos de carbón sin dañar los componentes de precisión.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Consejos -->
+    <!-- ── Consejos ───────────────────────────────── -->
     <section id="consejos" class="tips">
         <div class="container">
-            <h2>Consejos para Cuidar tu Sistema Diesel</h2>
+            <div class="section-header">
+                <span class="section-label">Mantenimiento</span>
+                <h2>Consejos para <span>Cuidar tu Diesel</span></h2>
+                <p>Buenas prácticas que prolongan la vida de su sistema de inyección</p>
+            </div>
             <div class="tips-grid">
                 <div class="tip-card">
-                    <h3>🛢️ Cambiar Filtro de Combustible</h3>
-                    <p>El filtro diesel retiene impurezas y agua. Cambialo cada 5000 km para evitar daños costosos en los inyectores y pérdida de potencia.</p>
+                    <h3>🛢️ Cambiar el Filtro de Combustible</h3>
+                    <p>El filtro diesel retiene impurezas y agua. Cámbielo cada 5000 km para evitar daños costosos en los inyectores y pérdida de potencia.</p>
                 </div>
                 <div class="tip-card">
-                    <h3>⛽ Nunca Conduzcas con Poco Combustible</h3>
-                    <p>Conducir con el tanque en reserva acumula sedimentos que pueden bloquear la bomba. Mantén siempre más del 25% de capacidad.</p>
+                    <h3>⛽ Nunca Conduzca con Poco Combustible</h3>
+                    <p>Conducir con el tanque en reserva acumula sedimentos que pueden bloquear la bomba. Mantenga siempre más del 25% de capacidad.</p>
                 </div>
                 <div class="tip-card">
-                    <h3>🧪 Usa Aditivos Limpiadores</h3>
-                    <p>El diésel moderno necesita aditivos que disuelvan depósitos de carbón y mejoren el arranque del motor.</p>
+                    <h3>🧪 Use Aditivos Limpiadores</h3>
+                    <p>El diésel moderno necesita aditivos que disuelvan depósitos de carbón y mejoren el arranque del motor. Consúltenos cuál usar.</p>
                 </div>
                 <div class="tip-card">
-                    <h3>🔄 Limpieza al Cambiar Filtro</h3>
-                    <p>Llena la carcasa del nuevo filtro con aditivo limpiador. Esto purga el aire y limpia los inyectores al arrancar.</p>
+                    <h3>🔄 Limpieza al Cambiar el Filtro</h3>
+                    <p>Llene la carcasa del nuevo filtro con aditivo limpiador. Esto purga el aire y limpia los inyectores al arrancar.</p>
                 </div>
                 <div class="tip-card">
                     <h3>🏚️ Cuidado en el Almacenamiento</h3>
-                    <p>Usa tanques sellados y limpios para evitar contaminación por agua, hongos y bacterias que se alimentan del diésel.</p>
+                    <p>Use tanques sellados y limpios para evitar contaminación por agua, hongos y bacterias que se alimentan del diésel.</p>
                 </div>
                 <div class="tip-card">
                     <h3>⚠️ Precaución al Recargar</h3>
-                    <p>Cuando llenan los depósitos en la gasolinera, la presión revuelve impurezas en suspensión. Espera un poco si es posible.</p>
+                    <p>Cuando llenan los depósitos en la gasolinera, la presión revuelve impurezas en suspensión. Espere un momento si es posible antes de arrancar.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Galería -->
+    <!-- ── Galería ────────────────────────────────── -->
     <section id="galeria" class="gallery">
         <div class="container">
-            <h2>Trabajos Realizados</h2>
-            <p class="gallery-subtitle">Casos de éxito en diagnóstico y reparación de sistemas diesel</p>
+            <div class="section-header">
+                <span class="section-label">Trabajos Realizados</span>
+                <h2>Casos de <span>Éxito</span></h2>
+                <p>Diagnósticos y reparaciones de sistemas diesel llevados a cabo con éxito</p>
+            </div>
             <div class="gallery-grid">
+
                 <div class="gallery-item">
                     <div class="gallery-card">
                         <div class="gallery-icon-wrapper">
@@ -199,8 +279,8 @@
                             </svg>
                         </div>
                         <h3>Bomba Common Rail</h3>
-                        <p class="gallery-subtitle-item">Reparación Common Rail</p>
-                        <p>Diagnóstico y reparación exitosa de bomba Common Rail</p>
+                        <span class="gallery-subtitle-item">Reparación Common Rail</span>
+                        <p>Diagnóstico y reparación exitosa de bomba Common Rail con prueba completa en banco</p>
                     </div>
                 </div>
 
@@ -216,7 +296,8 @@
                             </svg>
                         </div>
                         <h3>Limpieza de Inyectores</h3>
-                        <p class="gallery-subtitle-item">Limpieza ultrasónica de inyectores diesel restituidos</p>
+                        <span class="gallery-subtitle-item">Limpieza ultrasónica</span>
+                        <p>Limpieza ultrasónica de inyectores diesel restituidos a su rendimiento original</p>
                     </div>
                 </div>
 
@@ -230,7 +311,8 @@
                             </svg>
                         </div>
                         <h3>Revisión de Turbos</h3>
-                        <p class="gallery-subtitle-item">Inspección y reparación de sistemas turboalimentados</p>
+                        <span class="gallery-subtitle-item">Sistemas turboalimentados</span>
+                        <p>Inspección y reparación de sistemas turboalimentados con garantía</p>
                     </div>
                 </div>
 
@@ -245,7 +327,8 @@
                             </svg>
                         </div>
                         <h3>Banco de Pruebas</h3>
-                        <p class="gallery-subtitle-item">Validación con equipos Speedman y Dayel de clase mundial</p>
+                        <span class="gallery-subtitle-item">Speedman & Dayel</span>
+                        <p>Validación con equipos Speedman y Dayel de clase mundial</p>
                     </div>
                 </div>
 
@@ -261,7 +344,8 @@
                             </svg>
                         </div>
                         <h3>Calibración Precisa</h3>
-                        <p class="gallery-subtitle-item">Ajuste exacto de parámetros de inyección con precisión</p>
+                        <span class="gallery-subtitle-item">Parámetros de inyección</span>
+                        <p>Ajuste exacto de parámetros de inyección con precisión de fábrica</p>
                     </div>
                 </div>
 
@@ -276,44 +360,47 @@
                             </svg>
                         </div>
                         <h3>Mantenimiento Integral</h3>
-                        <p class="gallery-subtitle-item">Puesta a tiempo y mantenimiento preventivo completo</p>
+                        <span class="gallery-subtitle-item">Prevención completa</span>
+                        <p>Puesta a tiempo y mantenimiento preventivo completo del sistema diesel</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Sección de Estadísticas -->
+    <!-- ── Estadísticas ───────────────────────────── -->
     <section id="estadisticas" class="statistics">
         <div class="container">
             <h2>Nuestra Trayectoria</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h3 class="stat-number" data-target="500">0</h3>
+                    <span class="stat-number" data-target="500">0</span>
                     <p class="stat-label">Vehículos Reparados</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="stat-number" data-target="15">0</h3>
+                    <span class="stat-number" data-target="10">0</span>
                     <p class="stat-label">Años de Experiencia</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="stat-number" data-target="98">0</h3>
-                    <p class="stat-label">% Satisfacción</p>
+                    <span class="stat-number" data-target="98">0</span>
+                    <p class="stat-label">% de Satisfacción</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="stat-number" data-target="24">0</h3>
-                    <p class="stat-label">Horas de Atención</p>
+                    <span class="stat-number" data-target="4">0</span>
+                    <p class="stat-label">Equipos Especializados</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección de Precios y Servicios -->
+    <!-- ── Precios ────────────────────────────────── -->
     <section id="precios" class="pricing">
         <div class="container">
             <h2>Precios de Nuestros Servicios</h2>
             <p class="pricing-subtitle">Tarifas competitivas y garantizadas para cada tipo de reparación</p>
             <div class="pricing-grid">
+
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Diagnóstico Básico</h3>
@@ -321,8 +408,8 @@
                     </div>
                     <ul class="pricing-features">
                         <li>✓ Lectura de códigos de error</li>
-                        <li>✓ Inspección visual</li>
-                        <li>✓ Reporte completo</li>
+                        <li>✓ Inspección visual completa</li>
+                        <li>✓ Reporte detallado</li>
                         <li>✗ No incluye reparación</li>
                     </ul>
                     <button class="btn btn-outline" onclick="sendWhatsapp('Diagnóstico Básico')">Solicitar</button>
@@ -331,7 +418,7 @@
                 <div class="pricing-card featured">
                     <div class="pricing-header">
                         <h3>Limpieza de Inyectores</h3>
-                        <div class="price">$120-180</div>
+                        <div class="price">$120–180</div>
                     </div>
                     <ul class="pricing-features">
                         <li>✓ Limpieza ultrasónica</li>
@@ -345,7 +432,7 @@
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Reparación de Bomba</h3>
-                        <div class="price">$300-500</div>
+                        <div class="price">$300–500</div>
                     </div>
                     <ul class="pricing-features">
                         <li>✓ Desmontaje y limpieza</li>
@@ -359,7 +446,7 @@
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Puesta a Tiempo</h3>
-                        <div class="price">$80-150</div>
+                        <div class="price">$80–150</div>
                     </div>
                     <ul class="pricing-features">
                         <li>✓ Ajuste de parámetros</li>
@@ -373,7 +460,7 @@
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Mantenimiento Preventivo</h3>
-                        <div class="price">$200-350</div>
+                        <div class="price">$200–350</div>
                     </div>
                     <ul class="pricing-features">
                         <li>✓ Cambio de filtros</li>
@@ -387,7 +474,7 @@
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Paquete Completo</h3>
-                        <div class="price">$600-900</div>
+                        <div class="price">$600–900</div>
                     </div>
                     <ul class="pricing-features">
                         <li>✓ Diagnóstico completo</li>
@@ -397,22 +484,24 @@
                     </ul>
                     <button class="btn btn-primary" onclick="sendWhatsapp('Paquete Completo')">Solicitar</button>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Sección FAQ -->
+    <!-- ── FAQ ───────────────────────────────────── -->
     <section id="faq" class="faq">
         <div class="container">
             <h2>Preguntas Frecuentes</h2>
             <div class="faq-grid">
+
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
                         <h3>¿Cuánto tiempo tarda una reparación?</h3>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>El tiempo depende del tipo de reparación. Un diagnóstico toma 1-2 horas, una limpieza de inyectores 3-4 horas, y una reparación completa de bomba 5-7 horas. Contáctanos para un presupuesto personalizado.</p>
+                        <p>Depende del tipo de trabajo. Un diagnóstico toma 1–2 horas, una limpieza de inyectores 3–4 horas, y una reparación completa de bomba 5–7 horas. Contáctenos para un presupuesto personalizado.</p>
                     </div>
                 </div>
 
@@ -422,7 +511,7 @@
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Sí, todos nuestros servicios incluyen garantía. El diagnóstico no tiene garantía, limpiezas 6 meses, reparaciones 12 meses y paquetes completos también 12 meses. Las garantías cubren mano de obra y repuestos.</p>
+                        <p>Sí, todos nuestros servicios incluyen garantía: limpiezas 6 meses, reparaciones y paquetes completos 12 meses. Las garantías cubren mano de obra y repuestos.</p>
                     </div>
                 </div>
 
@@ -432,7 +521,7 @@
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Utilizamos los mejores bancos de prueba del mercado: Banco Speedman (Brasil) para bombas, Banco Dayel (Turquía) para inyectores, Simulador VP44 y Ultrasonido para inyectores a gasolina. Garantizamos máxima precisión.</p>
+                        <p>Banco Speedman (Brasil) para bombas, Banco Dayel (Turquía) para inyectores, Simulador VP44 y Ultrasonido para inyectores a gasolina. Garantizamos máxima precisión.</p>
                     </div>
                 </div>
 
@@ -442,7 +531,7 @@
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Sí, somos especialistas en vehículos pesados. Contamos con paquetes especiales para transportistas y flotas con descuentos por volumen y servicio express disponible. Contacta con nosotros para cotizar.</p>
+                        <p>Sí, somos especialistas en vehículos pesados. Tenemos paquetes especiales para transportistas y flotas con descuentos por volumen y servicio express. Contáctenos para cotizar.</p>
                     </div>
                 </div>
 
@@ -452,7 +541,7 @@
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Sí, contamos con servicio de emergencia. Llámanos por WhatsApp y evaluaremos la urgencia de tu caso. Tenemos capacidad de atender reparaciones en corto tiempo según disponibilidad.</p>
+                        <p>Sí, contamos con servicio de emergencia. Escríbanos por WhatsApp y evaluaremos la urgencia de su caso. Tenemos capacidad de atender reparaciones en corto tiempo.</p>
                     </div>
                 </div>
 
@@ -462,90 +551,91 @@
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Sí, contamos con stock de repuestos originales y compatibles. Consulta disponibilidad por WhatsApp. Ofrecemos precios mayoristas para transportistas y distribuidores autorizados.</p>
+                        <p>Sí, contamos con stock de repuestos originales y de alta calidad. Consulte disponibilidad por WhatsApp. Ofrecemos precios mayoristas para transportistas y distribuidores.</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Sección Blog/Noticias -->
+    <!-- ── Blog ───────────────────────────────────── -->
     <section id="blog" class="blog">
         <div class="container">
             <h2>Blog y Noticias</h2>
-            <p class="blog-subtitle">Artículos útiles sobre mantenimiento diesel y cuidado de tu motor</p>
+            <p class="blog-subtitle">Artículos útiles sobre mantenimiento diesel y cuidado de su motor</p>
             <div class="blog-grid">
+
                 <article class="blog-card">
                     <div class="blog-date">10 Abril 2024</div>
-                    <h3>Señales de que tu inyector necesita limpieza</h3>
-                    <p>Aprende a identificar los síntomas de inyectores obstruidos: pérdida de potencia, aumento de consumo, humo negro en el tubo de escape. Descubre cuándo es hora de una limpieza preventiva.</p>
+                    <h3>Señales de que su inyector necesita limpieza</h3>
+                    <p>Aprenda a identificar los síntomas de inyectores obstruidos: pérdida de potencia, aumento de consumo, humo negro en el tubo de escape. Descubra cuándo es hora de una limpieza preventiva.</p>
                     <a href="#" class="blog-link">Leer más →</a>
                 </article>
 
                 <article class="blog-card">
                     <div class="blog-date">5 Abril 2024</div>
                     <h3>Guía completa del diésel moderno</h3>
-                    <p>El combustible diesel ha evolucionado. Conoce las nuevas normas, aditivos recomendados y cómo afecta a tu sistema de inyección. Información técnica para transportistas profesionales.</p>
+                    <p>El combustible diesel ha evolucionado. Conozca las nuevas normas, aditivos recomendados y cómo afectan a su sistema de inyección. Información técnica para transportistas profesionales.</p>
                     <a href="#" class="blog-link">Leer más →</a>
                 </article>
 
                 <article class="blog-card">
                     <div class="blog-date">28 Marzo 2024</div>
                     <h3>Cuidados esenciales del sistema Common Rail</h3>
-                    <p>Las bombas Common Rail requieren mantenimiento especial. Descubre los cuidados preventivos que alargarán la vida útil de tu bomba y evitarán reparaciones costosas.</p>
+                    <p>Las bombas Common Rail requieren mantenimiento especial. Descubra los cuidados preventivos que alargarán la vida útil de su bomba y evitarán reparaciones costosas.</p>
                     <a href="#" class="blog-link">Leer más →</a>
                 </article>
 
                 <article class="blog-card">
                     <div class="blog-date">15 Marzo 2024</div>
                     <h3>¿Por qué no usar diésel de mala calidad?</h3>
-                    <p>El combustible de baja calidad es la principal causa de daños en sistemas diesel. Aprende qué impurezas lo contaminan y por qué es vital usar combustible certificado.</p>
+                    <p>El combustible de baja calidad es la principal causa de daños en sistemas diesel. Aprenda qué impurezas lo contaminan y por qué es vital usar combustible certificado.</p>
                     <a href="#" class="blog-link">Leer más →</a>
                 </article>
 
                 <article class="blog-card">
                     <div class="blog-date">1 Marzo 2024</div>
                     <h3>Mantenimiento preventivo: ahorro a largo plazo</h3>
-                    <p>Una reparación completa puede costar miles de dólares. Descubre cómo el mantenimiento preventivo regular te ahorra dinero y evita paros innecesarios.</p>
+                    <p>Una reparación completa puede costar miles de dólares. Descubra cómo el mantenimiento preventivo regular le ahorra dinero y evita paros innecesarios en ruta.</p>
                     <a href="#" class="blog-link">Leer más →</a>
                 </article>
 
                 <article class="blog-card">
                     <div class="blog-date">15 Febrero 2024</div>
                     <h3>Nuevas tecnologías en diagnosis diesel</h3>
-                    <p>Los bancos de prueba modernos permiten diagnósticos sin precedentes. Conoce la tecnología Speedman y Dayel que utilizamos para garantizar máxima precisión en cada reparación.</p>
+                    <p>Los bancos de prueba modernos permiten diagnósticos sin precedentes. Conozca la tecnología Speedman y Dayel que utilizamos para garantizar máxima precisión.</p>
                     <a href="#" class="blog-link">Leer más →</a>
                 </article>
+
             </div>
         </div>
     </section>
 
-    <!-- Sección de Formulario de Contacto -->
+    <!-- ── Formulario de Contacto ─────────────────── -->
     <section id="contacto-form" class="contact-form-section">
         <div class="container">
-            <h2>Contáctanos Directamente</h2>
-            <p class="form-subtitle">Completa el formulario y nos pondremos en contacto en menos de 24 horas</p>
+            <h2 data-aos="fade-up">Contáctenos Directamente</h2>
+            <p class="form-subtitle" data-aos="fade-up" data-aos-delay="100">Complete el formulario y nos pondremos en contacto en menos de 24 horas</p>
             <div class="form-container">
-                <form id="contactForm" class="contact-form">
+
+                <form id="contactForm" class="contact-form" data-aos="fade-right">
                     <div class="form-group">
                         <label for="nombre">Nombre Completo *</label>
-                        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                        <input type="text" id="nombre" name="nombre" required placeholder="Su nombre completo">
                     </div>
-
                     <div class="form-group">
                         <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                        <input type="email" id="email" name="email" required placeholder="su@email.com">
                     </div>
-
                     <div class="form-group">
-                        <label for="telefono">Teléfono/WhatsApp *</label>
+                        <label for="telefono">Teléfono / WhatsApp *</label>
                         <input type="tel" id="telefono" name="telefono" required placeholder="+593 9 XXXX XXXX">
                     </div>
-
                     <div class="form-group">
                         <label for="vehiculo">Tipo de Vehículo</label>
                         <select id="vehiculo" name="vehiculo">
-                            <option value="">Selecciona un tipo</option>
+                            <option value="">Seleccione un tipo</option>
                             <option value="camion">Camión</option>
                             <option value="bus">Bus</option>
                             <option value="furgon">Furgón</option>
@@ -553,81 +643,122 @@
                             <option value="otro">Otro</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="servicio">Servicio Requerido *</label>
                         <select id="servicio" name="servicio" required>
-                            <option value="">Selecciona un servicio</option>
-                            <option value="diagnostico">Diagnóstico</option>
-                            <option value="limpieza">Limpieza de Inyectores</option>
-                            <option value="reparacion">Reparación de Bomba</option>
-                            <option value="puesta">Puesta a Tiempo</option>
-                            <option value="mantenimiento">Mantenimiento Preventivo</option>
+                            <option value="">Seleccione un servicio</option>
+                            <option value="diagnostico">Diagnóstico Computarizado</option>
+                            <option value="inyectores">Mantenimiento de Inyectores</option>
+                            <option value="bombas">Servicio de Bombas</option>
+                            <option value="combustible">Análisis de Sistema Combustible</option>
+                            <option value="asesoria">Asesoría Técnica</option>
                             <option value="otro">Otro</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="mensaje">Mensaje o Descripción del Problema</label>
-                        <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos qué problema tiene tu vehículo..." rows="5"></textarea>
+                        <label for="mensaje">Descripción del Problema</label>
+                        <textarea id="mensaje" name="mensaje" placeholder="Cuéntenos qué problema tiene su vehículo..." rows="4"></textarea>
                     </div>
-
                     <div class="form-group checkbox">
                         <input type="checkbox" id="terminos" name="terminos" required>
                         <label for="terminos">Acepto los términos y condiciones *</label>
                     </div>
-
                     <button type="submit" class="btn btn-primary btn-large">Enviar Solicitud</button>
                 </form>
 
-                <div class="form-info">
-                    <h3>¿Prefieres contactarnos directamente?</h3>
+                <div class="form-info" data-aos="fade-left" data-aos-delay="200">
+                    <h3>¿Prefiere contactarnos directamente?</h3>
                     <div class="info-item">
                         <span class="info-icon">📱</span>
                         <div>
-                            <p><strong>WhatsApp</strong></p>
-                            <a href="https://wa.me/593">Enviar mensaje</a>
+                            <strong>WhatsApp</strong>
+                            <p><a href="https://wa.me/593">Enviar mensaje directo</a></p>
                         </div>
                     </div>
                     <div class="info-item">
                         <span class="info-icon">📞</span>
                         <div>
-                            <p><strong>Teléfono</strong></p>
+                            <strong>Teléfono</strong>
                             <p>+593 9 XXXX XXXX</p>
                         </div>
                     </div>
                     <div class="info-item">
                         <span class="info-icon">📧</span>
                         <div>
-                            <p><strong>Email</strong></p>
+                            <strong>Email</strong>
                             <p>contacto@dieselmg.com</p>
                         </div>
                     </div>
                     <div class="info-item">
                         <span class="info-icon">🕒</span>
                         <div>
-                            <p><strong>Horario</strong></p>
-                            <p>Lunes - Viernes: 8:00 AM - 6:00 PM<br>Sábados: 9:00 AM - 2:00 PM</p>
+                            <strong>Horario de Atención</strong>
+                            <p>Lunes – Viernes: 8:00 AM – 6:00 PM<br>Sábados: 9:00 AM – 2:00 PM</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Botón WhatsApp Flotante -->
-    <div class="whatsapp-float">
-        <a href="https://wa.me/593" target="_blank" title="Contactanos por WhatsApp">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.255.949c-1.238.505-2.337 1.236-3.237 2.201C2.97 10.487 2.308 12.041 2.308 13.74c0 1.823.469 3.577 1.364 5.122l-1.44 5.271 5.423-1.425c1.482.8 3.159 1.223 4.842 1.223 5.43 0 9.854-4.422 9.854-9.853 0-2.633-.636-5.112-1.847-7.265-1.211-2.154-2.857-4.081-4.736-5.495-1.88-1.414-4.08-2.196-6.433-2.196z" fill="currentColor"/>
-            </svg>
-        </a>
+    <!-- ── Speed-Dial WhatsApp Flotante ──────────────── -->
+    <div class="whatsapp-speed-dial" id="waSpeedDial">
+
+        <!-- Opciones del menú (se revelan al abrir) -->
+        <div class="speed-dial-menu">
+
+            <div class="speed-dial-item">
+                <span class="speed-dial-label">Cotizar servicio</span>
+                <a class="speed-dial-btn-small"
+                   href="https://wa.me/593?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20diesel."
+                   target="_blank" title="Cotizar servicio">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.032 1.378L.436 20.901l1.65-6.032A9.875 9.875 0 012.103 9.86C2.103 4.422 6.525 0 11.956 0c2.637 0 5.112.842 6.988 2.37C20.82 3.9 22 6.015 22 8.383c0 5.437-4.422 9.856-9.95 9.856" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="speed-dial-item">
+                <span class="speed-dial-label">Consulta urgente</span>
+                <a class="speed-dial-btn-small"
+                   href="https://wa.me/593?text=Hola%2C%20tengo%20una%20consulta%20urgente%20sobre%20mi%20veh%C3%ADculo%20diesel."
+                   target="_blank" title="Consulta urgente">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="speed-dial-item">
+                <span class="speed-dial-label">Mensaje general</span>
+                <a class="speed-dial-btn-small"
+                   href="https://wa.me/593?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Laboratorio%20Diesel%20MG."
+                   target="_blank" title="Mensaje general">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Botón principal -->
+        <div class="speed-dial-trigger" id="waSpeedDialTrigger" title="Contáctenos por WhatsApp" role="button" aria-expanded="false">
+            <span class="icon-wa">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.032 1.378L.436 20.901l1.65-6.032A9.875 9.875 0 012.103 9.86C2.103 4.422 6.525 0 11.956 0c2.637 0 5.112.842 6.988 2.37C20.82 3.9 22 6.015 22 8.383c0 5.437-4.422 9.856-9.95 9.856" fill="currentColor"/>
+                </svg>
+            </span>
+            <span class="icon-close">✕</span>
+        </div>
+
     </div>
 
-    <!-- Sección Ubicación y Contacto -->
+    <!-- ── Ubicación ───────────────────────────────── -->
     <section id="ubicacion" class="location">
         <div class="container">
-            <h2>Encontranos Fácilmente</h2>
+            <h2>Encuéntrenos Fácilmente</h2>
             <div class="location-content">
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.7549547840765!2d-78.63222!3d-2.89065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91cd41bf2f1f1f1f%3A0x1f1f1f1f1f1f1f1f!2sCuenca%2C%20Ecuador!5e0!3m2!1ses!2sec!4v1234567890" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -635,9 +766,9 @@
                 <div class="contact-info">
                     <h3>Información de Contacto</h3>
                     <p><strong>📞 Teléfono:</strong> +593 9 XXXX XXXX</p>
-                    <p><strong>📧 Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c8aba7a6bca9abbca788aca1adbbada4a5afe6aba7a5">[email&#160;protected]</a></p>
+                    <p><strong>📧 Email:</strong> contacto@dieselmg.com</p>
                     <p><strong>📍 Ubicación:</strong> Cuenca, Azuay, Ecuador</p>
-                    <p><strong>🕒 Horario:</strong> Lunes - Viernes: 8:00 AM - 6:00 PM</p>
+                    <p><strong>🕒 Horario:</strong> Lunes – Viernes: 8:00 AM – 6:00 PM<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sábados: 9:00 AM – 2:00 PM</p>
                     <a href="https://wa.me/593" class="btn btn-whatsapp">
                         💬 Consultar por WhatsApp
                     </a>
@@ -646,24 +777,45 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ── Footer ─────────────────────────────────── -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-content" data-aos="fade-up">
                 <div class="footer-section">
                     <h4>Laboratorio Diesel MG</h4>
-                    <p>Especialistas en diagnóstico y calibración de sistemas diesel</p>
+                    <p>Especialistas en diagnóstico, calibración y reparación de sistemas diesel. 10 años de trayectoria respaldando su motor.</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Enlaces Rápidos</h4>
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#servicios">Diagnóstico Computarizado</a></li>
+                        <li><a href="#servicios">Reparación de Inyectores</a></li>
+                        <li><a href="#servicios">Servicio de Bombas</a></li>
+                        <li><a href="#servicios">Asesoría Técnica</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Navegación</h4>
                     <ul>
                         <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#servicios">Servicios</a></li>
                         <li><a href="#equipos">Equipos</a></li>
+                        <li><a href="#precios">Precios</a></li>
+                        <li><a href="#contacto-form">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Contacto</h4>
-                    <p>WhatsApp: <a href="https://wa.me/593">Contactanos</a></p>
-                    <p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="76151918021715021936121f1305131a1b115815191b">[email&#160;protected]</a></p>
+                    <p>WhatsApp: <a href="https://wa.me/593">Contáctenos</a></p>
+                    <p>Email: contacto@dieselmg.com</p>
+                    <p>Cuenca, Ecuador</p>
                 </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Laboratorio Diesel MG · Todos los derechos reservados · Desarrollado con ❤️ en Ecuador</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
