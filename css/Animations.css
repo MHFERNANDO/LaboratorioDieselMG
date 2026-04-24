@@ -1,0 +1,487 @@
+/* ============================================
+   ANIMACIONES AOS (ANIMATE ON SCROLL)
+   ============================================ */
+
+/* Fade In */
+[data-aos="fade-in"] {
+    opacity: 0;
+    animation: aos-fade-in 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fade Up */
+[data-aos="fade-up"] {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: aos-fade-up 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade Down */
+[data-aos="fade-down"] {
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: aos-fade-down 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-fade-down {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade Left */
+[data-aos="fade-left"] {
+    opacity: 0;
+    transform: translateX(30px);
+    animation: aos-fade-left 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-fade-left {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Fade Right */
+[data-aos="fade-right"] {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: aos-fade-right 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-fade-right {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Zoom In */
+[data-aos="zoom-in"] {
+    opacity: 0;
+    transform: scale(0.9);
+    animation: aos-zoom-in 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-zoom-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Flip */
+[data-aos="flip-left"],
+[data-aos="flip-right"],
+[data-aos="flip-up"],
+[data-aos="flip-down"] {
+    opacity: 0;
+}
+
+[data-aos="flip-left"] {
+    animation: aos-flip-left 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-flip-left {
+    from {
+        opacity: 0;
+        transform: perspective(1200px) rotateY(90deg);
+    }
+    to {
+        opacity: 1;
+        transform: perspective(1200px) rotateY(0);
+    }
+}
+
+[data-aos="flip-right"] {
+    animation: aos-flip-right 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-flip-right {
+    from {
+        opacity: 0;
+        transform: perspective(1200px) rotateY(-90deg);
+    }
+    to {
+        opacity: 1;
+        transform: perspective(1200px) rotateY(0);
+    }
+}
+
+/* Bounce */
+[data-aos="bounce-in"] {
+    opacity: 0;
+    animation: aos-bounce-in 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes aos-bounce-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Delay classes */
+[data-aos-delay="100"] { animation-delay: 0.1s; }
+[data-aos-delay="200"] { animation-delay: 0.2s; }
+[data-aos-delay="300"] { animation-delay: 0.3s; }
+[data-aos-delay="400"] { animation-delay: 0.4s; }
+[data-aos-delay="500"] { animation-delay: 0.5s; }
+[data-aos-delay="600"] { animation-delay: 0.6s; }
+[data-aos-delay="700"] { animation-delay: 0.7s; }
+[data-aos-delay="800"] { animation-delay: 0.8s; }
+
+/* Duration classes */
+[data-aos-duration="400"] { animation-duration: 0.4s; }
+[data-aos-duration="600"] { animation-duration: 0.6s; }
+[data-aos-duration="800"] { animation-duration: 0.8s; }
+[data-aos-duration="1000"] { animation-duration: 1s; }
+[data-aos-duration="1200"] { animation-duration: 1.2s; }
+
+/* ============================================
+   ESTILOS PARA IMÁGENES
+   ============================================ */
+
+img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+img[data-src] {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+img.loaded {
+    animation: fadeInImage 0.6s ease-out;
+}
+
+@keyframes fadeInImage {
+    from {
+        opacity: 0;
+        filter: blur(8px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* Hover effects para imágenes */
+.gallery-item img,
+.blog-card img,
+.service-card img {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                filter 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.gallery-item:hover img,
+.blog-card:hover img,
+.service-card:hover img {
+    transform: scale(1.05) rotate(1deg);
+    filter: brightness(1.08) contrast(1.05);
+}
+
+/* ============================================
+   ANIMACIONES DE CONTADOR
+   ============================================ */
+
+.hero-stat strong {
+    font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   PULSOS Y EFECTOS ADICIONALES
+   ============================================ */
+
+/* Pulse base */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+[data-animate="pulse"] {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Glow */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(196, 30, 58, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(196, 30, 58, 0.6);
+    }
+}
+
+[data-animate="glow"] {
+    animation: glow 2.5s ease-in-out infinite;
+}
+
+/* Float */
+@keyframes float-smooth {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+[data-animate="float"] {
+    animation: float-smooth 3s ease-in-out infinite;
+}
+
+/* Slide */
+@keyframes slide-right {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+[data-animate="slide-right"] {
+    animation: slide-right 0.8s ease-out;
+}
+
+/* Shake */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+[data-animate="shake"] {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* ============================================
+   TRANSICIONES SUAVES
+   ============================================ */
+
+/* Smooth transitions para elementos interactivos */
+button, a, input, select, textarea {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.2s ease;
+}
+
+/* ============================================
+   EFECTOS DE TEXTO
+   ============================================ */
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.text-gradient {
+    background: linear-gradient(270deg, #c41e3a, #e23254, #c41e3a);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 4s ease infinite;
+}
+
+/* Typing effect */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    0%, 50% {
+        border-color: transparent;
+    }
+    50%, 100% {
+        border-color: var(--red);
+    }
+}
+
+.typing {
+    overflow: hidden;
+    border-right: 3px solid var(--red);
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+}
+
+/* ============================================
+   ANIMACIONES DE CARGA
+   ============================================ */
+
+/* Spinner */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    border: 3px solid rgba(196, 30, 58, 0.1);
+    border-top: 3px solid var(--red);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* ============================================
+   BACKDROP BLUR FALLBACK
+   ============================================ */
+
+/* Para navegadores sin soporte de backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+    .form-info,
+    .hero-visual-card,
+    .speed-dial-label {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    .navbar, .footer, .speed-dial-trigger, .whatsapp-speed-dial {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    a {
+        color: black;
+    }
+
+    [data-aos] {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* ============================================
+   REDUCIR MOVIMIENTO PARA USUARIOS SENSIBLES
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    [data-aos] {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .whatsapp-speed-dial:not(.open) .speed-dial-trigger {
+        animation: none !important;
+    }
+}
+
+/* ============================================
+   ESQUEMAS DE COLOR
+   ============================================ */
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --gray-900: #0a0a0a;
+        --gray-800: #1a1a1a;
+        --gray-50: #2a2a2a;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+    :root {
+        --red: #ff0000;
+        --gray-800: #000000;
+        --white: #ffffff;
+    }
+
+    .btn-primary {
+        border: 2px solid var(--red);
+    }
+}

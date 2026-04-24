@@ -1,576 +1,521 @@
-// ============================================
-// INICIALIZACIÓN GENERAL
-// ============================================
+/* ============================================
+   LABORATORIO DIESEL MG - SCRIPT PRINCIPAL
+   ============================================ */
 
+// Inicialización de AOS (Animate on Scroll)
+if (typeof AOS !== 'undefined') {
+    AOS.init({
+        duration: 900,
+        easing: 'ease-in-out-cubic',
+        offset: 100,
+        once: false,
+        mirror: true,
+        disable: false
+    });
+}
+
+// Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
+    if (typeof AOS !== 'undefined') {
+        AOS.refresh();
+    }
+    
     initializeNavigation();
-    initializeScrollEffects();
-    initializeWhatsAppLinks();
-    initializeAnimations();
-    initializeCounters();
-    initializeGallery();
-    initializeSpeedDial();
-    initializeMobileNav();
+    initializeMobileMenu();
+    initializeWhatsAppSpeedDial();
+    initializeFaqAccordion();
+    initializeContactForm();
+    initializeScrollSpyNavigation();
+    initializeSmoothScroll();
+    initializeIntersectionObserver();
 });
 
-// ============================================
-// CONTADOR DE ESTADÍSTICAS CON ANIMACIÓN
-// ============================================
-
-function initializeCounters() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    let hasAnimated = false;
-
-    const observerOptions = {
-        threshold: 0.5
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !hasAnimated) {
-                hasAnimated = true;
-                statNumbers.forEach(element => {
-                    const target = parseInt(element.getAttribute('data-target'));
-                    animateCounter(element, target);
-                });
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    const statsSection = document.querySelector('.statistics');
-    if (statsSection) {
-        observer.observe(statsSection);
+// Refreshear AOS cuando la página está completamente cargada
+window.addEventListener('load', function() {
+    if (typeof AOS !== 'undefined') {
+        AOS.refresh();
     }
-}
+});
 
-function animateCounter(element, target) {
-    let current = 0;
-    const increment = target / 50;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(current);
-        }
-    }, 30);
-}
+/* ============================================
+   NAVEGACIÓN ACTIVA AL SCROLLEAR
+   ============================================ */
 
-// ============================================
-// NAVEGACIÓN ACTIVA
-// ============================================
-
-function initializeNavigation() {
+function initializeScrollSpyNavigation() {
     const navLinks = document.querySelectorAll('.nav-links a');
-    
-    // Marcar enlace activo al hacer scroll
-    window.addEventListener('scroll', () => {
-        let current = '';
-        
-        const sections = document.querySelectorAll('section[id]');
+    const sections = document.querySelectorAll('section[id]');
+
+    window.addEventListener('scroll', throttle(function() {
+        let currentSection = '';
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            
             if (window.pageYOffset >= sectionTop - 200) {
-                current = section.getAttribute('id');
+                currentSection = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').slice(1) === current) {
+            if (link.getAttribute('href').slice(1) === currentSection) {
                 link.classList.add('active');
             }
         });
+    }, 100));
+}
+
+/* ============================================
+   MENÚ MÓVIL
+   ============================================ */
+
+function initializeMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const navLinks = mobileNav ? mobileNav.querySelectorAll('a') : [];
+
+    if (mobileMenuBtn && mobileNav) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+            mobileNav.setAttribute('aria-hidden', mobileNav.classList.contains('open') ? 'false' : 'true');
+            mobileMenuBtn.setAttribute('aria-expanded', mobileMenuBtn.classList.contains('open'));
+        });
+
+        // Cerrar menú al hacer click en un link
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('open');
+                mobileNav.classList.remove('open');
+                mobileNav.setAttribute('aria-hidden', 'true');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Cerrar al hacer scroll
+        window.addEventListener('scroll', function() {
+            if (mobileMenuBtn.classList.contains('open')) {
+                mobileMenuBtn.classList.remove('open');
+                mobileNav.classList.remove('open');
+                mobileNav.setAttribute('aria-hidden', 'true');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Cerrar al hacer click fuera del menú
+        document.addEventListener('click', function(event) {
+            if (!mobileNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                mobileMenuBtn.classList.remove('open');
+                mobileNav.classList.remove('open');
+                mobileNav.setAttribute('aria-hidden', 'true');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+}
+
+/* ============================================
+   SPEED-DIAL WHATSAPP
+   ============================================ */
+
+function initializeWhatsAppSpeedDial() {
+    const waSpeedDial = document.getElementById('waSpeedDial');
+    const waSpeedDialTrigger = document.getElementById('waSpeedDialTrigger');
+
+    if (waSpeedDialTrigger && waSpeedDial) {
+        waSpeedDialTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            waSpeedDial.classList.toggle('open');
+            const isOpen = waSpeedDial.classList.contains('open');
+            waSpeedDialTrigger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Cerrar al hacer click en los botones de opciones
+        const speedDialItems = waSpeedDial.querySelectorAll('.speed-dial-btn-small');
+        speedDialItems.forEach(item => {
+            item.addEventListener('click', function() {
+                waSpeedDial.classList.remove('open');
+                waSpeedDialTrigger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Cerrar al hacer click fuera
+        document.addEventListener('click', function(event) {
+            if (!waSpeedDial.contains(event.target)) {
+                waSpeedDial.classList.remove('open');
+                waSpeedDialTrigger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+}
+
+/* ============================================
+   ACORDEÓN FAQ
+   ============================================ */
+
+function toggleFaq(element) {
+    const faqQuestion = element;
+    const isActive = faqQuestion.classList.contains('active');
+
+    // Cerrar todos los FAQ abiertos excepto el actual
+    document.querySelectorAll('.faq-question').forEach(q => {
+        if (q !== faqQuestion) {
+            q.classList.remove('active');
+        }
     });
-    
-    // Cerrar navbar al hacer click en un enlace (mobile)
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
+
+    // Toggle el FAQ actual
+    faqQuestion.classList.toggle('active');
+}
+
+function initializeFaqAccordion() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleFaq(this);
+        });
+
+        // Soporte para teclado (Enter/Space)
+        question.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleFaq(this);
+            }
         });
     });
 }
 
-// ============================================
-// EFECTOS DE SCROLL
-// ============================================
+/* ============================================
+   FORMULARIO DE CONTACTO
+   ============================================ */
 
-function initializeScrollEffects() {
-    // Agregar efecto de scroll suave a los botones
-    const buttons = document.querySelectorAll('a[href^="#"]');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            
-            // Evitar que ejecute si es un enlace de WhatsApp
-            if (href.includes('whatsapp') || href.includes('wa.me')) {
+function initializeContactForm() {
+    const contactForm = document.getElementById('contactForm');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre')?.value.trim() || '';
+            const email = document.getElementById('email')?.value.trim() || '';
+            const telefono = document.getElementById('telefono')?.value.trim() || '';
+            const servicio = document.getElementById('servicio')?.value || '';
+            const mensaje = document.getElementById('mensaje')?.value.trim() || '';
+            const terminos = document.getElementById('terminos')?.checked || false;
+
+            // Validación básica
+            if (!nombre || !email || !telefono || !servicio || !terminos) {
+                alert('Por favor, complete todos los campos requeridos y acepte los términos.');
                 return;
             }
-            
-            e.preventDefault();
-            
-            const target = document.querySelector(href);
-            if (target) {
-                const offsetTop = target.offsetTop - 100;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
+
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor, ingrese un email válido.');
+                return;
+            }
+
+            // Construir mensaje para WhatsApp
+            const whatsappMessage = `
+*SOLICITUD DE SERVICIO - LABORATORIO DIESEL MG*
+
+*Nombre:* ${nombre}
+*Email:* ${email}
+*Teléfono:* ${telefono}
+*Servicio:* ${servicio}
+${mensaje ? `*Descripción:*\n${mensaje}` : ''}
+
+_Enviado desde el formulario de contacto_
+            `.trim();
+
+            // Abrir WhatsApp con el mensaje
+            const whatsappLink = `https://wa.me/593?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappLink, '_blank');
+
+            // Mostrar confirmación
+            alert('¡Gracias! Te hemos redirigido a WhatsApp. Por favor, envía el mensaje.');
+
+            // Limpiar formulario
+            contactForm.reset();
+        });
+    }
+}
+
+/* ============================================
+   NAVEGACIÓN GENERAL CON SCROLL SUAVE
+   ============================================ */
+
+function initializeNavigation() {
+    const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav a');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // Actualizar clase active
+                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            }
+        });
+    });
+}
+
+/* ============================================
+   SCROLL SUAVE PARA TODOS LOS ENLACES INTERNOS
+   ============================================ */
+
+function initializeSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && document.querySelector(href)) {
+                e.preventDefault();
+                const targetElement = document.querySelector(href);
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
             }
         });
     });
 }
 
-// ============================================
-// ACTUALIZAR ENLACES DE WHATSAPP
-// ============================================
+/* ============================================
+   LAZY LOADING DE IMÁGENES
+   ============================================ */
 
-function initializeWhatsAppLinks() {
-    // Reemplazar el número de WhatsApp (cambiar 593 por el número real)
-    // Ejemplo: https://wa.me/593987654321
-    
-    const whatsappButtons = document.querySelectorAll('a[href*="wa.me"]');
-    
-    whatsappButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Mensaje por defecto
-            const message = "Hola, quisiera información sobre los servicios de Laboratorio Diesel MG";
-            
-            // Obtener el href original
-            let href = this.getAttribute('href');
-            
-            // Si el href no tiene mensaje, agregarlo
-            if (!href.includes('?')) {
-                href += '?text=' + encodeURIComponent(message);
-                this.setAttribute('href', href);
-            }
+function initializeLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    img.addEventListener('load', function() {
+                        this.classList.add('loaded');
+                    });
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px'
         });
-    });
-}
 
-// ============================================
-// ANIMACIONES AL SCROLL
-// ============================================
-
-function initializeAnimations() {
-    // Observador de intersección para animaciones
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
-            }
+        images.forEach(img => imageObserver.observe(img));
+    } else {
+        // Fallback para navegadores sin IntersectionObserver
+        images.forEach(img => {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
         });
-    }, observerOptions);
-    
-    // Aplicar animación a elementos específicos
-    const elementsToAnimate = document.querySelectorAll(
-        '.service-card, .feature-item, .equipment-item, .tip-card, .gallery-item, .testimonial-card'
-    );
-    
-    elementsToAnimate.forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(element);
-    });
+    }
 }
 
-// ============================================
-// INICIALIZAR GALERÍA
-// ============================================
-
-function initializeGallery() {
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    
-    galleryItems.forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.1}s`;
-    });
+// Inicializar lazy loading si hay imágenes
+if (document.querySelectorAll('img[data-src]').length > 0) {
+    initializeLazyLoading();
 }
 
-// ============================================
-// ESTILOS DINÁMICOS PARA ANIMACIÓN
-// ============================================
+/* ============================================
+   CONTADORES ANIMADOS
+   ============================================ */
 
-// Agregar estilos para la animación fade-in
-const style = document.createElement('style');
-style.textContent = `
-    .fade-in {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
-    
-    .nav-links a.active {
-        color: #c41e3a;
-        border-bottom-color: #c41e3a;
-    }
-    
-    /* Efecto de hover en cards */
-    .service-card,
-    .feature-item,
-    .equipment-item,
-    .tip-card,
-    .gallery-item,
-    .testimonial-card {
-        position: relative;
-    }
-    
-    /* Animación de entrada para testimonios */
-    .testimonial-card {
-        animation: slideInLeft 0.6s ease-out forwards;
-        opacity: 0;
-    }
-    
-    @keyframes slideInLeft {
-        from {
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-`;
+function animateCounter(element, target, duration = 2000) {
+    if (!element) return;
 
-document.head.appendChild(style);
+    let current = 0;
+    const start = Date.now();
+    const increment = target / (duration / 16);
 
-// ============================================
-// VALIDACIÓN DE FORMULARIOS (si los hay)
-// ============================================
-
-function validateForm(form) {
-    const inputs = form.querySelectorAll('input[required], textarea[required]');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        if (!input.value.trim()) {
-            input.style.borderColor = '#c41e3a';
-            isValid = false;
+    const updateCounter = () => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target;
         } else {
-            input.style.borderColor = '#e2e8f0';
+            element.textContent = Math.floor(current);
+            requestAnimationFrame(updateCounter);
         }
-    });
-    
-    return isValid;
+    };
+
+    updateCounter();
 }
 
-// ============================================
-// FUNCIONES ÚTILES ADICIONALES
-// ============================================
+/* ============================================
+   INTERSECTION OBSERVER PARA ANIMACIONES
+   ============================================ */
 
-// Detectar si el dispositivo es móvil
-function isMobile() {
-    return window.innerWidth <= 768;
-}
+function initializeIntersectionObserver() {
+    if ('IntersectionObserver' in window) {
+        const elements = document.querySelectorAll('[data-aos]');
 
-// Función para mostrar notificaciones
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        background-color: ${type === 'success' ? '#25d366' : '#c41e3a'};
-        color: white;
-        border-radius: 8px;
-        z-index: 9999;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        animation: slideIn 0.3s ease;
-        font-weight: 500;
-    `;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.visibility = 'visible';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
 
-// Agregar animaciones de notificación
-const notificationStyles = document.createElement('style');
-notificationStyles.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+        elements.forEach(el => observer.observe(el));
     }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-`;
-
-document.head.appendChild(notificationStyles);
-
-// ============================================
-// CONTADOR DE VISITANTES (OPCIONAL)
-// ============================================
-
-function initializeVisitorCounter() {
-    // Obtener visitantes del localStorage
-    let visitors = localStorage.getItem('visitors') || 0;
-    visitors = parseInt(visitors) + 1;
-    localStorage.setItem('visitors', visitors);
-    
-    console.log('Visitantes totales: ' + visitors);
 }
 
-// Inicializar contador
-initializeVisitorCounter();
-
-// ============================================
-// MONITOREO DE RENDIMIENTO
-// ============================================
-
-window.addEventListener('load', function() {
-    const perfData = window.performance.timing;
-    const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-    console.log('Tiempo de carga de la página: ' + pageLoadTime + 'ms');
-});
-
-// ============================================
-// MANEJO DE ERRORES
-// ============================================
-
-window.addEventListener('error', function(event) {
-    console.error('Error detectado:', event.error);
-});
-
-// ============================================
-// EFECTO PARALLAX OPCIONAL
-// ============================================
+/* ============================================
+   PARALLAX EFFECT (opcional)
+   ============================================ */
 
 function initializeParallax() {
     const parallaxElements = document.querySelectorAll('[data-parallax]');
-    
-    window.addEventListener('scroll', () => {
-        parallaxElements.forEach(element => {
-            const scrollPosition = window.scrollY;
-            const elementPosition = element.offsetTop;
-            const distance = scrollPosition - elementPosition;
-            
-            element.style.backgroundPosition = `center ${distance * 0.5}px`;
-        });
-    });
-}
 
-// ============================================
-// SERVICIO WORKER PARA FUNCIONALIDAD OFFLINE (OPCIONAL)
-// ============================================
+    if (parallaxElements.length > 0 && 'IntersectionObserver' in window) {
+        window.addEventListener('scroll', throttle(function() {
+            parallaxElements.forEach(element => {
+                const scrollPosition = window.pageYOffset;
+                const elementOffset = element.offsetTop;
+                const elementHeight = element.clientHeight;
+                const distance = scrollPosition - elementOffset;
 
-if ('serviceWorker' in navigator) {
-    // Descomentar si deseas implementar Service Worker
-    // navigator.serviceWorker.register('service-worker.js')
-    //     .then(registration => console.log('Service Worker registrado'))
-    //     .catch(error => console.log('Error en Service Worker:', error));
-}
-
-// ============================================
-// SMOOTH SCROLL PARA NAVEGADORES ANTIGUOS
-// ============================================
-
-function smoothScroll(element) {
-    const startPosition = window.pageYOffset;
-    const distance = element.offsetTop - startPosition;
-    const duration = 1000;
-    let start = null;
-
-    const easeInOutQuad = (time, start, distance, duration) => {
-        time /= duration / 2;
-        if (time < 1) return distance / 2 * time * time + start;
-        time--;
-        return -distance / 2 * (time * (time - 2) - 1) + start;
-    };
-
-    const animation = (currentTime) => {
-        if (start === null) start = currentTime;
-        const timeElapsed = currentTime - start;
-        const position = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-        window.scrollTo(0, position);
-
-        if (timeElapsed < duration) {
-            requestAnimationFrame(animation);
-        }
-    };
-
-    requestAnimationFrame(animation);
-}
-
-
-// ============================================
-// FUNCIONALIDAD FAQ - ACCORDION
-// ============================================
-
-function toggleFaq(element) {
-    const faqQuestion = element;
-    const faqItem = faqQuestion.parentElement;
-    
-    // Cerrar otros items abiertos
-    document.querySelectorAll('.faq-item').forEach(item => {
-        if (item !== faqItem) {
-            item.querySelector('.faq-question').classList.remove('active');
-        }
-    });
-    
-    // Toggle el item actual
-    faqQuestion.classList.toggle('active');
-}
-
-// ============================================
-// FUNCIONALIDAD FORMULARIO DE CONTACTO
-// ============================================
-
-function initializeContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validar formulario
-            if (!validateForm(this)) {
-                showNotification('Por favor completa todos los campos requeridos', 'error');
-                return;
-            }
-            
-            // Obtener datos del formulario
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-            const telefono = document.getElementById('telefono').value;
-            const servicio = document.getElementById('servicio').value;
-            const mensaje = document.getElementById('mensaje').value;
-            
-            // Construir mensaje para WhatsApp
-            const whatsappMessage = 'Hola, me gustaría solicitar información:' + String.fromCharCode(10) + String.fromCharCode(10) + 
-                'Nombre: ' + nombre + String.fromCharCode(10) +
-                'Email: ' + email + String.fromCharCode(10) +
-                'Teléfono: ' + telefono + String.fromCharCode(10) +
-                'Servicio: ' + servicio + String.fromCharCode(10) +
-                'Mensaje: ' + mensaje;
-            
-            // Enviar por WhatsApp
-            const whatsappUrl = 'https://wa.me/593?text=' + encodeURIComponent(whatsappMessage);
-            window.open(whatsappUrl, '_blank');
-            
-            // Mostrar confirmación
-            showNotification('Tu mensaje ha sido enviado. Nos pondremos en contacto pronto.', 'success');
-            
-            // Limpiar formulario
-            this.reset();
-        });
+                if (distance > -window.innerHeight && distance < window.innerHeight) {
+                    const parallaxSpeed = parseFloat(element.dataset.parallax) || 0.5;
+                    element.style.transform = `translateY(${distance * parallaxSpeed}px)`;
+                }
+            });
+        }, 10));
     }
 }
 
-// ============================================
-// FUNCIÓN PARA ENVIAR POR WHATSAPP
-// ============================================
+initializeParallax();
 
-function sendWhatsapp(service) {
-    const message = 'Hola, me interesa el servicio: ' + service + '. ¿Cuál es el precio y disponibilidad?';
-    const whatsappUrl = 'https://wa.me/593?text=' + encodeURIComponent(message);
-    window.open(whatsappUrl, '_blank');
+/* ============================================
+   THROTTLE FUNCTION PARA OPTIMIZAR EVENTOS
+   ============================================ */
+
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
 }
 
-// Inicializar formulario
-document.addEventListener('DOMContentLoaded', () => {
-    initializeContactForm();
+/* ============================================
+   DEBOUNCE FUNCTION
+   ============================================ */
+
+function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+/* ============================================
+   DETECTOR DE CONEXIÓN DE RED
+   ============================================ */
+
+window.addEventListener('online', function() {
+    console.log('✓ Conexión a internet restaurada');
+    document.body.classList.remove('offline');
 });
 
-// ============================================
-// SPEED-DIAL WHATSAPP
-// ============================================
+window.addEventListener('offline', function() {
+    console.log('✗ Sin conexión a internet');
+    document.body.classList.add('offline');
+});
 
-function initializeSpeedDial() {
-    const dial    = document.getElementById('waSpeedDial');
-    const trigger = document.getElementById('waSpeedDialTrigger');
+// Verificar estado inicial
+if (!navigator.onLine) {
+    document.body.classList.add('offline');
+}
 
-    if (!dial || !trigger) return;
+/* ============================================
+   UTILIDADES
+   ============================================ */
 
-    trigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const isOpen = dial.classList.toggle('open');
-        trigger.setAttribute('aria-expanded', isOpen);
-    });
-
-    // Cerrar al hacer click fuera
-    document.addEventListener('click', function(e) {
-        if (!dial.contains(e.target)) {
-            dial.classList.remove('open');
-            trigger.setAttribute('aria-expanded', 'false');
-        }
-    });
-
-    // Cerrar al presionar Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            dial.classList.remove('open');
-            trigger.setAttribute('aria-expanded', 'false');
-        }
+// Actualizar año en el footer
+function updateYear() {
+    const currentYear = new Date().getFullYear();
+    const yearElements = document.querySelectorAll('[data-year]');
+    yearElements.forEach(el => {
+        el.textContent = currentYear;
     });
 }
 
-// ============================================
-// MENÚ MÓVIL (HAMBURGER)
-// ============================================
+updateYear();
 
-function initializeMobileNav() {
-    const btn = document.getElementById('mobileMenuBtn');
-    const nav = document.getElementById('mobileNav');
-
-    if (!btn || !nav) return;
-
-    function openMenu() {
-        btn.classList.add('open');
-        nav.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-        nav.setAttribute('aria-hidden', 'false');
+// Reproducir sonido (opcional)
+function playSound(soundFile) {
+    try {
+        const audio = new Audio(soundFile);
+        audio.volume = 0.3;
+        audio.play().catch(err => {
+            console.log('Audio no disponible:', err);
+        });
+    } catch (e) {
+        console.log('Error al reproducir sonido:', e);
     }
-
-    function closeMenu() {
-        btn.classList.remove('open');
-        nav.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-        nav.setAttribute('aria-hidden', 'true');
-    }
-
-    btn.addEventListener('click', function() {
-        btn.classList.contains('open') ? closeMenu() : openMenu();
-    });
-
-    // Cerrar al hacer click en cualquier enlace del menú
-    nav.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', closeMenu);
-    });
-
-    // Cerrar con Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeMenu();
-    });
 }
+
+// Función para copiar al portapapeles
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('✓ Copiado al portapapeles');
+        }).catch(err => {
+            console.error('Error al copiar:', err);
+        });
+    } else {
+        // Fallback para navegadores antiguos
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+}
+
+/* ============================================
+   EXPORTAR FUNCIONES GLOBALES
+   ============================================ */
+
+window.toggleFaq = toggleFaq;
+window.playSound = playSound;
+window.copyToClipboard = copyToClipboard;
+window.animateCounter = animateCounter;
+window.throttle = throttle;
+window.debounce = debounce;
+
+/* ============================================
+   MENSAJE DE CONSOLA
+   ============================================ */
+
+console.log('%c¡Laboratorio Diesel MG!', 'color: #c41e3a; font-size: 18px; font-weight: bold;');
+console.log('%cEspecialistas en sistemas diesel con 10 años de trayectoria', 'color: #666; font-size: 12px;');
