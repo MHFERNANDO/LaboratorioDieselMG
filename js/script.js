@@ -151,33 +151,35 @@ function initializeWhatsAppSpeedDial() {
 }
 
 /* ============================================
-   ACORDEÓN FAQ
+   ACORDEÓN FAQ - LABORATORIO DIESEL MG
    ============================================ */
 
 function toggleFaq(element) {
-    const faqQuestion = element;
-    const isActive = faqQuestion.classList.contains('active');
+    const isActive = element.classList.contains('active');
 
-    // Cerrar todos los FAQ abiertos excepto el actual
+    // Cerrar todos los demás para un efecto de acordeón real
     document.querySelectorAll('.faq-question').forEach(q => {
-        if (q !== faqQuestion) {
+        if (q !== element) {
             q.classList.remove('active');
+            q.setAttribute('aria-expanded', 'false');
         }
     });
 
-    // Toggle el FAQ actual
-    faqQuestion.classList.toggle('active');
+    // Alternar el estado del actual
+    element.classList.toggle('active');
+    element.setAttribute('aria-expanded', !isActive);
 }
 
 function initializeFaqAccordion() {
     const faqQuestions = document.querySelectorAll('.faq-question');
+    
     faqQuestions.forEach(question => {
-        question.addEventListener('click', function(e) {
-            e.preventDefault();
+        // Evento de Click
+        question.addEventListener('click', function() {
             toggleFaq(this);
         });
 
-        // Soporte para teclado (Enter/Space)
+        // Soporte para teclado
         question.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -186,6 +188,11 @@ function initializeFaqAccordion() {
         });
     });
 }
+
+// ¡IMPORTANTE! Inicia la función cuando cargue la página
+document.addEventListener('DOMContentLoaded', () => {
+    initializeFaqAccordion();
+});
 
 /* ============================================
    FORMULARIO DE CONTACTO
