@@ -1,0 +1,37 @@
+{
+  "name": "Laboratorio Diesel MG",
+  "short_name": "Diesel MG",
+  "description": "Especialistas en diagnóstico computarizado, limpieza de inyectores Common Rail y reparación de bombas de inyección diesel en Cuenca.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#e67e22",
+  "lang": "es-EC",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "assets/LabDieselPreview.png",
+      "sizes": "821x603",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["automotive", "business"],
+  "shortcuts": [
+    {
+      "name": "Cotizar por WhatsApp",
+      "short_name": "Cotizar",
+      "description": "Enviar mensaje al taller por WhatsApp",
+      "url": "https://wa.me/593988373185?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20diesel.",
+      "icons": [{ "src": "assets/LabDieselPreview.png", "sizes": "821x603" }]
+    },
+    {
+      "name": "Ver Servicios",
+      "short_name": "Servicios",
+      "description": "Consultar los servicios disponibles",
+      "url": "/#servicios",
+      "icons": [{ "src": "assets/LabDieselPreview.png", "sizes": "821x603" }]
+    }
+  ]
+}
