@@ -1,21 +1,22 @@
 /* ============================================
    LABORATORIO DIESEL MG - SCRIPT PRINCIPAL
    Sin dependencias. Compatible con CSP script-src 'self'.
+   Animaciones: IntersectionObserver + CSS/WAAPI (transform, opacity, clip-path).
    ============================================ */
 
 window.__ldmgReady = true;
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const isDesktop = window.matchMedia('(min-width: 960px)');
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeScrollSpy();
-    initializeScrollEffects();
-    initializeReveal();
-    initializeCounters();
+    initializeHeader();
     initializeContactForm();
     initializeMapFacade();
+    initializeFaq();
+    initializeReveals();
+    initializeHeadlines();
     updateYear();
 });
 
@@ -33,11 +34,9 @@ function initializeScrollSpy() {
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             const link = byId.get(entry.target.id);
-            if (!link) return;
-            if (entry.isIntersecting) {
-                links.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-            }
+            if (!link || !entry.isIntersecting) return;
+            links.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
         });
     }, { rootMargin: '-35% 0px -55% 0px' });
 
@@ -48,7 +47,7 @@ function initializeScrollSpy() {
 }
 
 /* ============================================
-   MENÚ MÓVIL (aria-expanded, Esc, clic fuera)
+   MENÚ MÓVIL (pantalla completa, aria-expanded, Esc)
    ============================================ */
 
 function initializeMobileMenu() {
@@ -57,154 +56,230 @@ function initializeMobileMenu() {
     if (!btn || !nav) return;
 
     function setOpen(open, returnFocus) {
-        btn.classList.toggle('open', open);
-        nav.classList.toggle('open', open);
         btn.setAttribute('aria-expanded', String(open));
         btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        nav.classList.toggle('open', open);
         nav.inert = !open;
+        document.documentElement.classList.toggle('menu-open', open);
         if (!open && returnFocus) btn.focus();
     }
 
     setOpen(false);
 
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        setOpen(!nav.classList.contains('open'));
-    });
-
-    nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => setOpen(false));
-    });
+    btn.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && nav.classList.contains('open')) setOpen(false, true);
     });
 
-    document.addEventListener('click', function(e) {
-        if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) setOpen(false);
-    });
-
-    window.addEventListener('scroll', function() {
-        if (nav.classList.contains('open')) setOpen(false);
-    }, { passive: true });
+    // Al pasar a escritorio el panel deja de tener sentido
+    window.matchMedia('(min-width: 900px)').addEventListener('change', e => { if (e.matches) setOpen(false); });
 }
 
 /* ============================================
-   EFECTOS LIGADOS AL SCROLL
-   Un solo listener pasivo + requestAnimationFrame:
-   cabecera compacta, barra de progreso (scaleX) y parallax del hero.
+   CABECERA: se compacta con transform + borde (sin blur)
    ============================================ */
 
-const PARALLAX_MAX = 40;
-
-function initializeScrollEffects() {
+function initializeHeader() {
     const header = document.getElementById('siteHeader');
-    const progress = document.getElementById('scrollProgress');
-    const parallaxEl = document.querySelector('[data-parallax]');
-    let ticking = false;
+    if (!header) return;
 
+    let ticking = false;
     function update() {
         ticking = false;
-        const y = window.scrollY;
-
-        if (header) header.classList.toggle('is-scrolled', y > 24);
-
-        if (progress) {
-            const max = document.documentElement.scrollHeight - window.innerHeight;
-            progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
-        }
-
-        if (parallaxEl) {
-            // Sin desplazamientos para quien prefiere menos movimiento, ni en pantallas pequeñas
-            if (isDesktop.matches && !reducedMotion.matches) {
-                const offset = Math.min(PARALLAX_MAX, Math.max(0, y * 0.08));
-                parallaxEl.style.transform = 'translate3d(0,' + offset.toFixed(1) + 'px,0)';
-            } else {
-                parallaxEl.style.transform = '';
-            }
-        }
+        header.classList.toggle('is-scrolled', window.scrollY > 24);
     }
-
     window.addEventListener('scroll', function() {
         if (!ticking) {
             ticking = true;
             requestAnimationFrame(update);
         }
     }, { passive: true });
-    window.addEventListener('resize', update);
     update();
 }
 
 /* ============================================
-   REVELADO AL ENTRAR EN VISTA (una sola vez)
-   Escalonado de 70 ms entre hermanos de un [data-stagger]
-   que entran en vista a la vez.
+   TITULARES: máscara por líneas (H1 al cargar, H2 al entrar en vista)
    ============================================ */
 
-const STAGGER_MS = 70;
+const LINE_STAGGER_MS = 80;
 
-function initializeReveal() {
-    const items = document.querySelectorAll('[data-reveal]');
-    if (!items.length) return;
+// Parte un titular en líneas visuales. Conserva el texto (con espacios reales)
+// y respeta saltos forzados (elementos en bloque dentro del titular).
+function splitLines(el) {
+    if (!el.dataset.original) el.dataset.original = el.innerHTML;
+    el.innerHTML = el.dataset.original;
 
-    if (!('IntersectionObserver' in window)) {
-        items.forEach(el => el.classList.add('is-visible'));
+    const words = [];
+    let segment = 0;
+    (function walk(node) {
+        node.childNodes.forEach(function(child) {
+            if (child.nodeType === Node.TEXT_NODE) {
+                child.textContent.split(/\s+/).filter(Boolean).forEach(w => words.push({ text: w, segment }));
+            } else if (child.nodeType === Node.ELEMENT_NODE) {
+                if (getComputedStyle(child).display === 'block') segment++;
+                walk(child);
+                if (getComputedStyle(child).display === 'block') segment++;
+            }
+        });
+    })(el);
+
+    // Medición: un bloque por segmento, para que los saltos forzados se respeten
+    el.textContent = '';
+    const blocks = [];
+    const spans = words.map(function(w) {
+        let block = blocks[w.segment];
+        if (!block) {
+            block = document.createElement('span');
+            block.style.display = 'block';
+            el.appendChild(block);
+            blocks[w.segment] = block;
+        }
+        const span = document.createElement('span');
+        span.textContent = w.text;
+        span.style.display = 'inline-block';
+        block.appendChild(span);
+        block.appendChild(document.createTextNode(' '));
+        return span;
+    });
+
+    // Agrupar por segmento y posición vertical
+    const lines = [];
+    spans.forEach(function(span, i) {
+        const key = words[i].segment + ':' + Math.round(span.offsetTop);
+        const last = lines[lines.length - 1];
+        if (last && last.key === key) last.words.push(words[i].text);
+        else lines.push({ key, words: [words[i].text] });
+    });
+
+    el.textContent = '';
+    el.setAttribute('aria-label', lines.map(l => l.words.join(' ')).join(' '));
+    lines.forEach(function(line, i) {
+        const outer = document.createElement('span');
+        outer.className = 'line';
+        outer.setAttribute('aria-hidden', 'true');
+        outer.style.setProperty('--i', String(i));
+        const inner = document.createElement('span');
+        inner.className = 'line__inner';
+        inner.textContent = line.words.join(' ');
+        outer.appendChild(inner);
+        el.appendChild(outer);
+        // Espacio real entre líneas para lectores y selección de texto
+        if (i < lines.length - 1) el.appendChild(document.createTextNode(' '));
+    });
+    el.classList.add('is-split');
+}
+
+function initializeHeadlines() {
+    const headlines = document.querySelectorAll('[data-split]');
+    if (!headlines.length) return;
+
+    // Con movimiento reducido no se parte nada: el titular se muestra tal cual
+    if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+        headlines.forEach(el => el.classList.add('is-split', 'is-in'));
         return;
     }
+
+    const fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    const timeout = new Promise(resolve => setTimeout(resolve, 800));
+
+    Promise.race([fontsReady, timeout]).then(function() {
+        const observer = new IntersectionObserver(function(entries, obs) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                obs.unobserve(entry.target);
+            });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+
+        headlines.forEach(function(el) {
+            splitLines(el);
+            if (el.tagName === 'H1') el.classList.add('is-in');
+            else observer.observe(el);
+        });
+
+        // Al cambiar el ancho se recalculan las líneas, sin volver a animar
+        let width = window.innerWidth;
+        let timer;
+        window.addEventListener('resize', function() {
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                if (window.innerWidth === width) return;
+                width = window.innerWidth;
+                headlines.forEach(el => {
+                    const wasIn = el.classList.contains('is-in');
+                    splitLines(el);
+                    if (wasIn) el.classList.add('is-in');
+                });
+            }, 200);
+        });
+    });
+}
+
+/* ============================================
+   FOTOS Y FILAS AL ENTRAR EN VISTA (una sola vez)
+   Filas: escalonado de 50 ms entre las que entran a la vez.
+   ============================================ */
+
+const ROW_STAGGER_MS = 50;
+
+function initializeReveals() {
+    const targets = document.querySelectorAll('[data-photo], [data-row], [data-line]');
+    if (!targets.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+        targets.forEach(el => el.classList.add('is-visible'));
+        return;
+    }
+
+    // Un elemento recortado por su propio clip-path no intersecta: las fotos
+    // se observan a través de su contenedor, que no está recortado.
+    const watched = new Map();
+    targets.forEach(function(el) {
+        const watchEl = el.hasAttribute('data-photo') ? el.parentElement : el;
+        watched.set(watchEl, el);
+    });
 
     const observer = new IntersectionObserver(function(entries, obs) {
         const entering = entries
             .filter(entry => entry.isIntersecting)
             .sort((a, b) => (a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1);
-        const counters = new Map();
 
-        entering.forEach(function(entry) {
-            const el = entry.target;
-            const parent = el.parentElement;
-            let index = 0;
-            if (parent && parent.hasAttribute('data-stagger')) {
-                index = counters.get(parent) || 0;
-                counters.set(parent, index + 1);
-            }
-            el.style.setProperty('--reveal-delay', (index * STAGGER_MS) + 'ms');
+        entering.forEach(function(entry, index) {
+            const el = watched.get(entry.target);
+            el.style.setProperty('--stagger', String(index));
             el.classList.add('is-visible');
-            obs.unobserve(el);
+            obs.unobserve(entry.target);
         });
-    }, { threshold: 0.15 });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
 
-    items.forEach(el => observer.observe(el));
+    watched.forEach((el, watchEl) => observer.observe(watchEl));
 }
 
 /* ============================================
-   CONTADOR ANIMADO (años de trayectoria)
+   FAQ: apertura 200 ms, cierre 150 ms (opacity + translateY)
    ============================================ */
 
-function initializeCounters() {
-    const counters = document.querySelectorAll('[data-count]');
-    if (!counters.length || reducedMotion.matches || !('IntersectionObserver' in window)) return;
+function initializeFaq() {
+    document.querySelectorAll('.faq-item').forEach(function(item) {
+        const summary = item.querySelector('summary');
+        const answer = item.querySelector('.faq-answer');
+        if (!summary || !answer || reducedMotion.matches || !answer.animate) return;
 
-    const DURATION = 1400;
-    const easeOut = t => 1 - Math.pow(1 - t, 3);
-
-    const observer = new IntersectionObserver(function(entries, obs) {
-        entries.forEach(function(entry) {
-            if (!entry.isIntersecting) return;
-            const el = entry.target;
-            const target = parseInt(el.dataset.count, 10);
-            const start = performance.now();
-            obs.unobserve(el);
-
-            (function tick(now) {
-                const t = Math.min(1, (now - start) / DURATION);
-                el.textContent = String(Math.round(target * easeOut(t)));
-                if (t < 1) requestAnimationFrame(tick);
-            })(start);
+        summary.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (item.open) {
+                const close = answer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 150, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' });
+                close.onfinish = () => item.removeAttribute('open');
+            } else {
+                item.setAttribute('open', '');
+                answer.animate(
+                    [{ opacity: 0, transform: 'translateY(-4px)' }, { opacity: 1, transform: 'translateY(0)' }],
+                    { duration: 200, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+                );
+            }
         });
-    }, { threshold: 0.15 });
-
-    counters.forEach(function(el) {
-        el.textContent = '0';
-        observer.observe(el);
     });
 }
 
