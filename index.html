@@ -1,40 +1,281 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-EC">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Laboratorio Diesel MG | Inyectores y Bombas Diesel en Cuenca</title>
-    
-    <meta name="description" content="Especialistas en diagnóstico computarizado, limpieza de inyectores Common Rail y reparación de bombas de inyección diesel en Cuenca. ¡10 años de experiencia!">
-    
-    <!-- PALABRAS CLAVE (Keywords): Aunque Google ya no las usa como factor principal, otros motores sí -->
+    <meta name="description" content="Diagnóstico computarizado, limpieza de inyectores Common Rail y reparación de bombas de inyección diesel en Cuenca. 10 años de experiencia.">
     <meta name="keywords" content="laboratorio diesel cuenca, inyectores diesel, bombas de inyeccion, diagnostico computarizado diesel, common rail cuenca, mecanica diesel azuay">
-    
-    <!-- DIRECTRICES PARA ROBOTS: Indexar la página y seguir sus enlaces -->
     <meta name="robots" content="index, follow">
-    
-    <!-- SEO LOCAL: Ayuda a Google Maps y las búsquedas locales a ubicar el taller en Cuenca, Ecuador -->
-    <meta name="geo.region" content="EC-A" />
-    <meta name="geo.platatitude" content="-2.88817" />
-    <meta name="geo.longitude" content="-79.01026" />
-    <meta name="ICBM" content="-2.88817, -79.01026" />
-    <meta name="geo.placename" content="Cuenca, Azuay, Ecuador" />
+    <meta name="theme-color" content="#0E1116">
 
-    <!--Apunta temporalmente a la raíz para evitar problemas en Vercel/GitHub -->
-    <link rel="canonical" href="/">
+    <!-- SEO local -->
+    <meta name="geo.region" content="EC-A">
+    <meta name="geo.placename" content="Cuenca, Azuay, Ecuador">
+    <meta name="geo.position" content="-2.88817;-79.01026">
+    <meta name="ICBM" content="-2.88817, -79.01026">
 
-    <!-- OPEN GRAPH: Optimización para Redes Sociales y WhatsApp (Para que se vea la tarjeta con foto al compartir el link) -->
-    <meta property="og:title" content="Laboratorio Diesel MG | Diagnóstico y Reparación de Sistemas Diesel">
-    <meta property="og:description" content="Calibración de inyectores y bombas con tecnología de clase mundial. Visítanos en Cuenca.">
-    <meta property="og:image" content="assets/hero.webp"> <!-- Asegúrate de que esta imagen exista en tu carpeta -->
-    <meta property="og:url" content="/">
+    <link rel="canonical" href="https://www.laboratoriodieselmg.com/">
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Laboratorio Diesel MG">
+    <meta property="og:locale" content="es_EC">
+    <meta property="og:title" content="Laboratorio Diesel MG | Inyectores y Bombas Diesel en Cuenca">
+    <meta property="og:description" content="Calibración de inyectores y bombas con tecnología de clase mundial. Visítenos en Cuenca.">
+    <meta property="og:url" content="https://www.laboratoriodieselmg.com/">
+    <meta property="og:image" content="https://www.laboratoriodieselmg.com/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Fachada de Laboratorio Diesel MG en Cuenca, Ecuador, con el logotipo del laboratorio">
 
-    <link rel="manifest" href="manifest.json">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Laboratorio Diesel MG | Inyectores y Bombas Diesel en Cuenca">
+    <meta name="twitter:description" content="Calibración de inyectores y bombas con tecnología de clase mundial. Visítenos en Cuenca.">
+    <meta name="twitter:image" content="https://www.laboratoriodieselmg.com/assets/og-image.jpg">
+    <meta name="twitter:image:alt" content="Fachada de Laboratorio Diesel MG en Cuenca, Ecuador, con el logotipo del laboratorio">
+
+    <!-- Iconos y manifest -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" href="assets/LabDieselPreview.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AutoRepair",
+      "@id": "https://www.laboratoriodieselmg.com/#negocio",
+      "name": "Laboratorio Diesel MG",
+      "url": "https://www.laboratoriodieselmg.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.laboratoriodieselmg.com/assets/LabDieselPreview.png",
+        "width": 512,
+        "height": 410
+      },
+      "image": [
+        "https://www.laboratoriodieselmg.com/assets/og-image.jpg",
+        "https://www.laboratoriodieselmg.com/assets/hero.webp"
+      ],
+      "description": "Diagnóstico computarizado, limpieza y calibración de inyectores Common Rail y reparación de bombas de inyección diesel en Cuenca.",
+      "email": "laboratoriodieselmg@hotmail.com",
+      "telephone": "+593988373185",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "name": "Taller",
+          "telephone": "+593988373185",
+          "contactType": "customer service"
+        },
+        {
+          "@type": "ContactPoint",
+          "name": "Oficina",
+          "telephone": "+593991231310",
+          "contactType": "customer service"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cuenca",
+        "addressRegion": "Azuay",
+        "addressCountry": "EC"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -2.88817,
+        "longitude": -79.01026
+      },
+      "hasMap": "https://maps.google.com/?cid=9914645970524642249",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:30",
+          "closes": "13:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "14:30",
+          "closes": "18:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:30",
+          "closes": "13:00"
+        }
+      ],
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Cuenca"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Azuay"
+        }
+      ],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Diagnóstico Computarizado de Inyección",
+            "description": "Utilizamos escáneres y equipos de diagnóstico de última generación para identificar con precisión fallas en el sistema de inyección electrónica. Ahorre tiempo y dinero con diagnósticos exactos desde la primera revisión."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mantenimiento y Reparación de Inyectores",
+            "description": "Especialistas en la limpieza, calibración y reparación de inyectores (Mecánicos, Common Rail, UI, UP). Devolvemos el rendimiento original a sus componentes siguiendo estrictos estándares del fabricante."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Servicio de Bombas de Inyección",
+            "description": "Contamos con bancos de prueba modernos para la revisión y ajuste de bombas de inyección diesel. Aseguramos la presión y el flujo correctos para un funcionamiento óptimo del motor."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Análisis de Fallas en el Sistema de Combustible",
+            "description": "Evaluamos todo el circuito de combustible para detectar contaminantes, fugas o pérdidas de presión que afecten el desempeño de su unidad."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Asesoría Técnica Especializada",
+            "description": "Nuestro personal capacitado le brindará recomendaciones preventivas para prolongar la vida útil de su sistema diesel, respaldados por una década de trayectoria en el mercado."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Revisión de Turbos y Sistemas Auxiliares",
+            "description": "Inspección y mantenimiento de sistemas turboalimentados y demás componentes relacionados con el circuito de inyección y la puesta a tiempo del motor."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.laboratoriodieselmg.com/#website",
+      "url": "https://www.laboratoriodieselmg.com/",
+      "name": "Laboratorio Diesel MG",
+      "inLanguage": "es-EC",
+      "publisher": {
+        "@id": "https://www.laboratoriodieselmg.com/#negocio"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.laboratoriodieselmg.com/#webpage",
+      "url": "https://www.laboratoriodieselmg.com/",
+      "name": "Laboratorio Diesel MG | Inyectores y Bombas Diesel en Cuenca",
+      "description": "Diagnóstico computarizado, limpieza de inyectores Common Rail y reparación de bombas de inyección diesel en Cuenca. 10 años de experiencia.",
+      "inLanguage": "es-EC",
+      "isPartOf": {
+        "@id": "https://www.laboratoriodieselmg.com/#website"
+      },
+      "about": {
+        "@id": "https://www.laboratoriodieselmg.com/#negocio"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://www.laboratoriodieselmg.com/assets/og-image.jpg",
+        "width": 1200,
+        "height": 630
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.laboratoriodieselmg.com/#faq",
+      "mainEntityOfPage": {
+        "@id": "https://www.laboratoriodieselmg.com/#webpage"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuánto tiempo demora una reparación?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El tiempo varía de acuerdo al sistema al que pertenece la bomba y los inyectores, pero generalmente el proceso toma entre 1 a 2 días laborables."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Atienden transportistas y flotas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Atendemos al público en general. En el caso de flotas vehiculares, se puede considerar un descuento adicional dependiendo del número de unidades."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué equipos utilizan para las pruebas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Contamos con tecnología de punta: Escáner Launch OBD2, Opacímetro Bosch, Bancos de prueba Speedman CRDI, Hartridge para sistemas Cummins, Dayel para CRDI y banco específico para inyectores a gasolina."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Ofrecen garantías?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Utilizamos repuestos originales. La durabilidad y garantía se asegura mediante el mantenimiento preventivo del cliente en el cambio de filtros y la calidad del suministro de combustible."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Venden repuestos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Disponemos de un amplio stock de repuestos originales para todo tipo de sistema de inyección Diesel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Realizan reparaciones urgentes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dentro de nuestros horarios establecidos, realizamos todos los trabajos necesarios de forma eficiente para que su vehículo retorne a operación lo antes posible."
+          }
+        }
+      ]
+    }
+  ]
+}
+    </script>
 </head>
 <body>
 
@@ -77,7 +318,7 @@
         <div class="container">
             <div class="hero-content" data-aos="fade-right">
                 <span class="hero-badge">10 años de trayectoria</span>
-                <h1>Diagnóstico y Calibración<span>Profesional Diesel</span></h1>
+                <h1>Diagnóstico y Calibración <span class="h1-line">Diesel Profesional en Cuenca</span></h1>
                 <p>Especializados en inyectores Common Rail, UI, UP y bombas diesel con equipos de precisión de clase mundial. Su vehículo es su herramienta de trabajo — cuídela con los mejores.</p>
                 <div class="hero-buttons">
                     <a href="https://wa.me/593988373185?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20diesel." class="btn btn-primary" target="_blank" rel="noopener noreferrer">💬 Cotizar por WhatsApp</a>
@@ -196,7 +437,7 @@
             <div class="equipment-content">
                 <div class="equipment-item" data-aos="fade-up" data-aos-delay="100">
                     <h3>🏭 Banco Speedman (Brasil)</h3>
-                    <p>Equipo brasilero de prueba de bombas diesel con máxima precisión. Realiza pruebas completas de caudal, presión y atomización de combustible.</p>
+                    <p>Equipo brasileño de prueba de bombas diesel con máxima precisión. Realiza pruebas completas de caudal, presión y atomización de combustible.</p>
                 </div>
                 <div class="equipment-item" data-aos="fade-up" data-aos-delay="200">
                     <h3>🏭 Banco Dayel (Turquía)</h3>
@@ -210,6 +451,19 @@
                     <h3>🔊 Ultrasonido para Inyectores</h3>
                     <p>Limpieza ultrasónica de inyectores a gasolina. Elimina depósitos de carbón sin dañar los componentes de precisión.</p>
                 </div>
+
+                <div class="equipment-item" data-aos="fade-up" data-aos-delay="500">
+                    <h3>Banco Hartridge</h3>
+                    <p>Banco de prueba Hartridge para sistemas Cummins.</p>
+                </div>
+                <div class="equipment-item" data-aos="fade-up" data-aos-delay="600">
+                    <h3>Escáner Launch OBD2</h3>
+                    <p>Escáner Launch OBD2, parte de los equipos que utilizamos para las pruebas.</p>
+                </div>
+                <div class="equipment-item" data-aos="fade-up" data-aos-delay="700">
+                    <h3>Opacímetro Bosch</h3>
+                    <p>Opacímetro Bosch, parte de los equipos que utilizamos para las pruebas.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -218,7 +472,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Mantenimiento</span>
-                <h2>Consejos para <span>Cuidar tu Diesel</span></h2>
+                <h2>Consejos para <span>Cuidar su Diesel</span></h2>
                 <p>Buenas prácticas que prolongan la vida de su sistema de inyección</p>
             </div>
             <div class="tips-grid">
@@ -232,7 +486,7 @@
                 </div>
                 <div class="tip-card">
                     <h3>🧪 Use Aditivos Limpiadores</h3>
-                    <p>El diésel moderno necesita aditivos que disuelvan depósitos de carbón y mejoren el arranque del motor. Consúltenos cuál usar.</p>
+                    <p>El diesel moderno necesita aditivos que disuelvan depósitos de carbón y mejoren el arranque del motor. Consúltenos cuál usar.</p>
                 </div>
                 <div class="tip-card">
                     <h3>🔄 Limpieza al Cambiar el Filtro</h3>
@@ -240,7 +494,7 @@
                 </div>
                 <div class="tip-card">
                     <h3>🏚️ Cuidado en el Almacenamiento</h3>
-                    <p>Use tanques sellados y limpios para evitar contaminación por agua, hongos y bacterias que se alimentan del diésel.</p>
+                    <p>Use tanques sellados y limpios para evitar contaminación por agua, hongos y bacterias que se alimentan del diesel.</p>
                 </div>
                 <div class="tip-card">
                     <h3>⚠️ Precaución al Recargar</h3>
@@ -484,14 +738,14 @@
                         <span class="info-icon">📞</span>
                         <div>
                             <strong>Teléfonos</strong>
-                            <p>Oficina: 0991231310<br>Taller: 0988373185</p>
+                            <p>Oficina: <a href="tel:+593991231310">0991231310</a><br>Taller: <a href="tel:+593988373185">0988373185</a></p>
                         </div>
                     </div>
                     <div class="info-item">
                         <span class="info-icon">📧</span>
                         <div>
                             <strong>Email</strong>
-                            <p>laboratoriodieselmg@hotmail.com</p>
+                            <p><a href="mailto:laboratoriodieselmg@hotmail.com">laboratoriodieselmg@hotmail.com</a></p>
                         </div>
                     </div>
                     <div class="info-item">
@@ -561,9 +815,9 @@
                 </div>
                 <div class="contact-info">
                     <h3>Información de Contacto</h3>
-                    <p><strong>📞 Teléfono Oficina:</strong> 0991231310</p>
-                    <p><strong>📞 Teléfono Taller:</strong> 0988373185</p>
-                    <p><strong>📧 Email:</strong> laboratoriodieselmg@hotmail.com</p>
+                    <p><strong>📞 Teléfono Oficina:</strong> <a href="tel:+593991231310">0991231310</a></p>
+                    <p><strong>📞 Teléfono Taller:</strong> <a href="tel:+593988373185">0988373185</a></p>
+                    <p><strong>📧 Email:</strong> <a href="mailto:laboratoriodieselmg@hotmail.com">laboratoriodieselmg@hotmail.com</a></p>
                     <p><strong>📍 Ubicación:</strong> Cuenca, Azuay, Ecuador</p>
                     <p><strong>🕒 Horario de Atención:</strong><br>
                         • <strong>Talleres:</strong> Lun a Vie 8:30 a 13:00 y 14:30 a 18:30<br>
@@ -604,15 +858,15 @@
                 </div>
                 <div class="footer-section">
                     <h4>Contacto</h4>
-                    <p>Oficina: 0991231310</p>
-                    <p>Taller: 0988373185</p>
+                    <p>Oficina: <a href="tel:+593991231310">0991231310</a></p>
+                    <p>Taller: <a href="tel:+593988373185">0988373185</a></p>
                     <p>WhatsApp: <a href="https://wa.me/593988373185" target="_blank" rel="noopener noreferrer">Taller</a> | <a href="https://wa.me/593991231310" target="_blank" rel="noopener noreferrer">Oficina</a></p>
-                    <p>Email: laboratoriodieselmg@hotmail.com</p>
+                    <p>Email: <a href="mailto:laboratoriodieselmg@hotmail.com">laboratoriodieselmg@hotmail.com</a></p>
                     <p>Cuenca, Ecuador</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2024 Laboratorio Diesel MG · Todos los derechos reservados</p>
+                <p>© <span data-year>2026</span> Laboratorio Diesel MG · Todos los derechos reservados</p>
             </div>
         </div>
     </footer>
