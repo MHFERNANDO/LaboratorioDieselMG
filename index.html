@@ -45,7 +45,10 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <link rel="preload" as="image" type="image/avif" imagesrcset="assets/hero-480.avif 480w, assets/hero-800.avif 800w, assets/hero-1200.avif 1200w" imagesizes="(min-width: 960px) 560px, 100vw" fetchpriority="high">
+    <link rel="preload" href="/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/boot.js"></script>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -282,202 +285,225 @@
 
     <a class="skip-link" href="#main">Saltar al contenido</a>
 
-    <nav class="navbar" aria-label="Principal">
-        <div class="container">
-            <div class="nav-content">
+    <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4" /> <path d="M3.34 19a10 10 0 1 1 17.32 0" /></symbol>
+  <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" /> <path d="m14.5 12.5 2-2" /> <path d="m11.5 9.5 2-2" /> <path d="m8.5 6.5 2-2" /> <path d="m17.5 15.5 2-2" /></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><path d="M12 20v2" /> <path d="M12 2v2" /> <path d="M17 20v2" /> <path d="M17 2v2" /> <path d="M2 12h2" /> <path d="M2 17h2" /> <path d="M2 7h2" /> <path d="M20 12h2" /> <path d="M20 17h2" /> <path d="M20 7h2" /> <path d="M7 20v2" /> <path d="M7 2v2" /> <rect x="4" y="4" width="16" height="16" rx="2" /> <rect x="8" y="8" width="8" height="8" rx="1" /></symbol>
+  <symbol id="i-audio-waveform" viewBox="0 0 24 24"><path d="M2 13a2 2 0 0 0 2-2V7a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0V4a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0v-4a2 2 0 0 1 2-2" /></symbol>
+  <symbol id="i-flask-conical" viewBox="0 0 24 24"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /> <path d="M6.453 15h11.094" /> <path d="M8.5 2h7" /></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5" /> <path d="M15 8V2" /> <path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z" /> <path d="M9 8V2" /></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M12.8 19.6A2 2 0 1 0 14 16H2" /> <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" /> <path d="M9.8 4.4A2 2 0 1 1 11 8H2" /></symbol>
+  <symbol id="i-cog" viewBox="0 0 24 24"><path d="M11 10.27 7 3.34" /> <path d="m11 13.73-4 6.93" /> <path d="M12 22v-2" /> <path d="M12 2v2" /> <path d="M14 12h8" /> <path d="m17 20.66-1-1.73" /> <path d="m17 3.34-1 1.73" /> <path d="M2 12h2" /> <path d="m20.66 17-1.73-1" /> <path d="m20.66 7-1.73 1" /> <path d="m3.34 17 1.73-1" /> <path d="m3.34 7 1.73 1" /> <circle cx="12" cy="12" r="2" /> <circle cx="12" cy="12" r="8" /></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" /></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></symbol>
+  <symbol id="i-fuel" viewBox="0 0 24 24"><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" /> <path d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" /> <path d="M2 21h13" /> <path d="M3 9h11" /></symbol>
+  <symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /> <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /> <path d="M8 16H3v5" /></symbol>
+  <symbol id="i-warehouse" viewBox="0 0 24 24"><path d="M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11" /> <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z" /> <path d="M6 13h12" /> <path d="M6 17h12" /></symbol>
+  <symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol>
+  <symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /></symbol>
+  <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14" /> <path d="M12 5v14" /></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" /></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></symbol>
+</svg>
 
-                <a href="#inicio" class="logo">
-                    <img src="assets/logo-sm.webp" alt="Laboratorio Diesel MG" class="logo-img" width="168" height="134">
+    <header class="site-header" id="siteHeader">
+        <div class="site-header__bar">
+            <div class="container nav-content">
+                <a href="#inicio" class="logo" aria-label="Laboratorio Diesel MG, inicio">
+                    <img src="assets/logo-sm.webp" alt="" class="logo-img" width="168" height="134">
+                    <span class="logo-text">Laboratorio Diesel MG</span>
                 </a>
 
-                <ul class="nav-links">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#equipos">Equipos</a></li>
-                    <li><a href="#galeria">Galería</a></li>
-                    <li><a href="#contacto-form">Contacto</a></li>
-                </ul>
+                <nav class="primary-nav" aria-label="Principal">
+                    <ul class="nav-links">
+                        <li><a href="#inicio">Inicio</a></li><li><a href="#servicios">Servicios</a></li><li><a href="#equipos">Equipos</a></li><li><a href="#galeria">Galería</a></li><li><a href="#contacto-form">Contacto</a></li>
+                    </ul>
+                </nav>
 
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
+                    <svg class="icon icon-open" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg>
+                    <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="#i-x"/></svg>
                 </button>
             </div>
 
             <div class="mobile-nav" id="mobileNav">
-                <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#equipos">Equipos</a></li>
-                    <li><a href="#galeria">Galería</a></li>
-                    <li><a href="#contacto-form">Contacto</a></li>
-                </ul>
+                <div class="container">
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li><li><a href="#servicios">Servicios</a></li><li><a href="#equipos">Equipos</a></li><li><a href="#galeria">Galería</a></li><li><a href="#contacto-form">Contacto</a></li>
+                    </ul>
+                </div>
             </div>
+            <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
         </div>
-    </nav>
+    </header>
 
     <main id="main">
 
     <section id="inicio" class="hero">
-        <div class="container">
-            <div class="hero-content" data-aos="fade-right">
-                <span class="hero-badge">10 años de trayectoria</span>
+        <div class="container hero__grid">
+            <div class="hero__content">
+                <p class="hero-badge">10 años de trayectoria</p>
                 <h1>Diagnóstico y Calibración <span class="h1-line">Diesel Profesional en Cuenca</span></h1>
-                <p>Especializados en inyectores Common Rail, UI, UP y bombas diesel con equipos de precisión de clase mundial. Su vehículo es su herramienta de trabajo — cuídela con los mejores.</p>
-                <div class="hero-buttons">
-                    <a href="https://wa.me/593988373185?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20diesel." class="btn btn-primary" target="_blank" rel="noopener noreferrer">💬 Cotizar por WhatsApp</a>
-                    <a href="#servicios" class="btn btn-secondary">Ver Servicios</a>
+                <p class="hero__lead">Especializados en inyectores Common Rail, UI, UP y bombas diesel con equipos de precisión de clase mundial. Su vehículo es su herramienta de trabajo — cuídela con los mejores.</p>
+                <div class="hero__actions">
+                    <a href="https://wa.me/593988373185?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20diesel." class="btn btn-primary" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-message-circle"/></svg> Cotizar por WhatsApp</a>
+                    <a href="#servicios" class="btn btn-ghost">Ver Servicios <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a>
                 </div>
-                <br>
             </div>
 
-            <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
+            <figure class="hero__media hero-image">
                 <picture>
                     <source type="image/avif" srcset="assets/hero-480.avif 480w, assets/hero-800.avif 800w, assets/hero-1200.avif 1200w" sizes="(min-width: 960px) 560px, 100vw">
                     <source type="image/webp" srcset="assets/hero-480.webp 480w, assets/hero-800.webp 800w, assets/hero-1200.webp 1200w" sizes="(min-width: 960px) 560px, 100vw">
                     <img src="assets/hero-800.webp" alt="Fachada de Laboratorio Diesel MG en Cuenca" class="hero-img" width="1200" height="900" fetchpriority="high" decoding="async">
                 </picture>
-            </div>
+                <figcaption class="mono">Taller · Cuenca, Azuay</figcaption>
+            </figure>
         </div>
     </section>
 
-    <section id="acerca" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text" data-aos="fade-up">
-                    <span class="about-tag">¿Quiénes Somos?</span>
-                    <h2>Con 10 años respaldando su motor</h2>
-                    <p>En <strong>Laboratorio Diesel MG</strong> sabemos que su vehículo es su herramienta de trabajo. Por eso, invertimos en el mejor equipo técnico y capacitación constante para detectar cualquier falla con total exactitud.</p>
-                    <p>Contamos con un amplio stock de repuestos originales para garantizar la mayor durabilidad y, si lo prefiere, gestionamos repuestos alternos de alta calidad según su necesidad.</p>
-                    <p>Somos expertos en diagnóstico, calibración y reparación de sistemas diesel — referentes en la industria de vehículos pesados con un equipo altamente capacitado y comprometido.</p>
-                </div>
-
-                <div class="about-features">
-                    <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="feature-icon">⚙️</div>
-                        <div>
-                            <h3>Precisión Técnica</h3>
-                            <p>Equipos certificados y calibrados internacionalmente</p>
-                        </div>
-                    </div>
-                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-icon">🔧</div>
-                        <div>
-                            <h3>Experiencia Comprobada</h3>
-                            <p>10 años formando profesionales especializados</p>
-                        </div>
-                    </div>
-                    <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
-                        <div class="feature-icon">🛡️</div>
-                        <div>
-                            <h3>Garantía de Calidad</h3>
-                            <p>Repuestos originales y trabajo garantizado</p>
-                        </div>
-                    </div>
-                    <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
-                        <div class="feature-icon">📦</div>
-                        <div>
-                            <h3>Stock de Repuestos</h3>
-                            <p>Originales y alternos de alta calidad disponibles</p>
-                        </div>
-                    </div>
-                </div>
+    <section id="acerca" class="section section--light about">
+        <div class="container about-content">
+            <div class="about-text">
+                <span class="section-label">¿Quiénes Somos?</span>
+                <h2>Con 10 años respaldando su motor</h2>
+                <p>En <strong>Laboratorio Diesel MG</strong> sabemos que su vehículo es su herramienta de trabajo. Por eso, invertimos en el mejor equipo técnico y capacitación constante para detectar cualquier falla con total exactitud.</p>
+                <p>Contamos con un amplio stock de repuestos originales para garantizar la mayor durabilidad y, si lo prefiere, gestionamos repuestos alternos de alta calidad según su necesidad.</p>
+                <p>Somos expertos en diagnóstico, calibración y reparación de sistemas diesel — referentes en la industria de vehículos pesados con un equipo altamente capacitado y comprometido.</p>
+                <p class="stat"><span class="stat__num mono" data-count="10">10</span> <span class="stat__label">años de trayectoria</span></p>
             </div>
+
+            <ul class="about-features">
+                <li class="feature-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-ruler"/></svg></span>
+                    <div>
+                        <h3>Precisión Técnica</h3>
+                        <p>Equipos certificados y calibrados internacionalmente</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-wrench"/></svg></span>
+                    <div>
+                        <h3>Experiencia Comprobada</h3>
+                        <p>10 años formando profesionales especializados</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-shield-check"/></svg></span>
+                    <div>
+                        <h3>Garantía de Calidad</h3>
+                        <p>Repuestos originales y trabajo garantizado</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-package"/></svg></span>
+                    <div>
+                        <h3>Stock de Repuestos</h3>
+                        <p>Originales y alternos de alta calidad disponibles</p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </section>
 
-    <section id="servicios" class="services">
+    <section id="servicios" class="section services">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header">
                 <span class="section-label">Lo que hacemos</span>
                 <h2>Nuestros <span>Servicios</span></h2>
                 <p>Soluciones completas para el sistema de inyección diesel de su vehículo</p>
             </div>
             <div class="services-grid">
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <article class="card service-card">
                     <span class="service-num">01</span>
                     <h3>Diagnóstico Computarizado de Inyección</h3>
                     <p>Utilizamos escáneres y equipos de diagnóstico de última generación para identificar con precisión fallas en el sistema de inyección electrónica. Ahorre tiempo y dinero con diagnósticos exactos desde la primera revisión.</p>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                </article>
+                <article class="card service-card">
                     <span class="service-num">02</span>
                     <h3>Mantenimiento y Reparación de Inyectores</h3>
                     <p>Especialistas en la limpieza, calibración y reparación de inyectores (Mecánicos, Common Rail, UI, UP). Devolvemos el rendimiento original a sus componentes siguiendo estrictos estándares del fabricante.</p>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                </article>
+                <article class="card service-card">
                     <span class="service-num">03</span>
                     <h3>Servicio de Bombas de Inyección</h3>
                     <p>Contamos con bancos de prueba modernos para la revisión y ajuste de bombas de inyección diesel. Aseguramos la presión y el flujo correctos para un funcionamiento óptimo del motor.</p>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                </article>
+                <article class="card service-card">
                     <span class="service-num">04</span>
                     <h3>Análisis de Fallas en el Sistema de Combustible</h3>
                     <p>Evaluamos todo el circuito de combustible para detectar contaminantes, fugas o pérdidas de presión que afecten el desempeño de su unidad.</p>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                </article>
+                <article class="card service-card">
                     <span class="service-num">05</span>
                     <h3>Asesoría Técnica Especializada</h3>
                     <p>Nuestro personal capacitado le brindará recomendaciones preventivas para prolongar la vida útil de su sistema diesel, respaldados por una década de trayectoria en el mercado.</p>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                </article>
+                <article class="card service-card">
                     <span class="service-num">06</span>
                     <h3>Revisión de Turbos y Sistemas Auxiliares</h3>
                     <p>Inspección y mantenimiento de sistemas turboalimentados y demás componentes relacionados con el circuito de inyección y la puesta a tiempo del motor.</p>
-                </div>
-
+                </article>
             </div>
         </div>
     </section>
 
-    <section id="equipos" class="equipment">
+    <section id="equipos" class="section section--surface equipment">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header">
                 <span class="section-label">Tecnología</span>
                 <h2>Equipos de <span>Clase Mundial</span></h2>
                 <p>Herramientas de diagnóstico de última generación para garantizar precisión en cada trabajo</p>
             </div>
             <div class="equipment-content">
-                <div class="equipment-item" data-aos="fade-up" data-aos-delay="100">
-                    <h3>🏭 Banco Speedman (Brasil)</h3>
+                <article class="card equipment-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gauge"/></svg></span>
+                    <h3>Banco Speedman (Brasil)</h3>
                     <p>Equipo brasileño de prueba de bombas diesel con máxima precisión. Realiza pruebas completas de caudal, presión y atomización de combustible.</p>
-                </div>
-                <div class="equipment-item" data-aos="fade-up" data-aos-delay="200">
-                    <h3>🏭 Banco Dayel (Turquía)</h3>
+                </article>
+                <article class="card equipment-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-activity"/></svg></span>
+                    <h3>Banco Dayel (Turquía)</h3>
                     <p>Analizador turco de inyectores diesel de última generación. Garantiza la precisión en cada diagnóstico y reparación de inyectores.</p>
-                </div>
-                <div class="equipment-item" data-aos="fade-up" data-aos-delay="300">
-                    <h3>📊 Simulador VP44</h3>
+                </article>
+                <article class="card equipment-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-cpu"/></svg></span>
+                    <h3>Simulador VP44</h3>
                     <p>Sistema especializado para bombas VP44. Simula condiciones reales de funcionamiento para validar reparaciones con exactitud.</p>
-                </div>
-                <div class="equipment-item" data-aos="fade-up" data-aos-delay="400">
-                    <h3>🔊 Ultrasonido para Inyectores</h3>
+                </article>
+                <article class="card equipment-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-audio-waveform"/></svg></span>
+                    <h3>Ultrasonido para Inyectores</h3>
                     <p>Limpieza ultrasónica de inyectores a gasolina. Elimina depósitos de carbón sin dañar los componentes de precisión.</p>
-                </div>
-
-                <div class="equipment-item" data-aos="fade-up" data-aos-delay="500">
+                </article>
+                <article class="card equipment-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-cog"/></svg></span>
                     <h3>Banco Hartridge</h3>
                     <p>Banco de prueba Hartridge para sistemas Cummins.</p>
-                </div>
-                <div class="equipment-item" data-aos="fade-up" data-aos-delay="600">
+                </article>
+                <article class="card equipment-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plug"/></svg></span>
                     <h3>Escáner Launch OBD2</h3>
                     <p>Escáner Launch OBD2, parte de los equipos que utilizamos para las pruebas.</p>
-                </div>
-                <div class="equipment-item" data-aos="fade-up" data-aos-delay="700">
+                </article>
+                <article class="card equipment-item">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-wind"/></svg></span>
                     <h3>Opacímetro Bosch</h3>
                     <p>Opacímetro Bosch, parte de los equipos que utilizamos para las pruebas.</p>
-                </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <section id="consejos" class="tips">
+    <section id="consejos" class="section section--light tips">
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Mantenimiento</span>
@@ -485,229 +511,225 @@
                 <p>Buenas prácticas que prolongan la vida de su sistema de inyección</p>
             </div>
             <div class="tips-grid">
-                <div class="tip-card">
-                    <h3>🛢️ Cambiar el Filtro de Combustible</h3>
+                <article class="card tip-card">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-filter"/></svg></span>
+                    <h3>Cambiar el Filtro de Combustible</h3>
                     <p>El filtro diesel retiene impurezas y agua. Cámbielo cada 5000 km para evitar daños costosos en los inyectores y pérdida de potencia.</p>
-                </div>
-                <div class="tip-card">
-                    <h3>⛽ Nunca Conduzca con Poco Combustible</h3>
+                </article>
+                <article class="card tip-card">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-fuel"/></svg></span>
+                    <h3>Nunca Conduzca con Poco Combustible</h3>
                     <p>Conducir con el tanque en reserva acumula sedimentos que pueden bloquear la bomba. Mantenga siempre más del 25% de capacidad.</p>
-                </div>
-                <div class="tip-card">
-                    <h3>🧪 Use Aditivos Limpiadores</h3>
+                </article>
+                <article class="card tip-card">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-flask-conical"/></svg></span>
+                    <h3>Use Aditivos Limpiadores</h3>
                     <p>El diesel moderno necesita aditivos que disuelvan depósitos de carbón y mejoren el arranque del motor. Consúltenos cuál usar.</p>
-                </div>
-                <div class="tip-card">
-                    <h3>🔄 Limpieza al Cambiar el Filtro</h3>
+                </article>
+                <article class="card tip-card">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-refresh-cw"/></svg></span>
+                    <h3>Limpieza al Cambiar el Filtro</h3>
                     <p>Llene la carcasa del nuevo filtro con aditivo limpiador. Esto purga el aire y limpia los inyectores al arrancar.</p>
-                </div>
-                <div class="tip-card">
-                    <h3>🏚️ Cuidado en el Almacenamiento</h3>
+                </article>
+                <article class="card tip-card">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-warehouse"/></svg></span>
+                    <h3>Cuidado en el Almacenamiento</h3>
                     <p>Use tanques sellados y limpios para evitar contaminación por agua, hongos y bacterias que se alimentan del diesel.</p>
-                </div>
-                <div class="tip-card">
-                    <h3>⚠️ Precaución al Recargar</h3>
+                </article>
+                <article class="card tip-card">
+                    <span class="card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-triangle-alert"/></svg></span>
+                    <h3>Precaución al Recargar</h3>
                     <p>Cuando llenan los depósitos en la gasolinera, la presión revuelve impurezas en suspensión. Espere un momento si es posible antes de arrancar.</p>
-                </div>
+                </article>
             </div>
         </div>
     </section>
-    
-    <section id="galeria" class="gallery">
+
+    <section id="galeria" class="section gallery">
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Trabajos Realizados</span>
                 <h2>Especialistas en Inyección Diesel</h2>
                 <p>Diagnóstico computarizado y reconstrucción técnica de componentes de alta precisión.</p>
             </div>
-
             <div class="gallery-grid">
-
-                <div class="gallery-item">
-                    <div class="gallery-card">
-                        <div class="gallery-image-wrapper">
-                            <picture>
-                                <source type="image/avif" srcset="assets/bombaCrdi-342.avif 342w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <source type="image/webp" srcset="assets/bombaCrdi-342.webp 342w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <img src="assets/bombaCrdi-342.webp" alt="Reparación Bomba Common Rail" class="gallery-image" width="342" height="296" loading="lazy" decoding="async">
-                            </picture>
+                <article class="gallery-card">
+                    <div class="gallery-media">
+                        <picture>
+                <source type="image/avif" srcset="assets/bombaCrdi-342.avif 342w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/bombaCrdi-342.webp 342w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <img src="assets/bombaCrdi-342.webp" alt="Reparación Bomba Common Rail" class="gallery-image" width="342" height="296" loading="lazy" decoding="async">
+            </picture>
+                        <div class="gallery-overlay">
+                            <h3>Bomba CRDI</h3>
+                            <span class="gallery-subtitle-item">Tecnología Common Rail</span>
                         </div>
-                        <h3>Bomba CRDI</h3>
-                        <span class="gallery-subtitle-item">Tecnología Common Rail</span>
-                        <p>Reacondicionamiento de bombas de alta presión con calibración de válvulas reguladoras y caudal.</p>
                     </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-card">
-                        <div class="gallery-image-wrapper">
-                            <picture>
-                                <source type="image/avif" srcset="assets/bombaP-327.avif 327w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <source type="image/webp" srcset="assets/bombaP-327.webp 327w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <img src="assets/bombaP-327.webp" alt="Mantenimiento Bomba Lineal P" class="gallery-image" width="327" height="221" loading="lazy" decoding="async">
-                            </picture>
+                    <p>Reacondicionamiento de bombas de alta presión con calibración de válvulas reguladoras y caudal.</p>
+                </article>
+                <article class="gallery-card">
+                    <div class="gallery-media">
+                        <picture>
+                <source type="image/avif" srcset="assets/bombaP-327.avif 327w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/bombaP-327.webp 327w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <img src="assets/bombaP-327.webp" alt="Mantenimiento Bomba Lineal P" class="gallery-image" width="327" height="221" loading="lazy" decoding="async">
+            </picture>
+                        <div class="gallery-overlay">
+                            <h3>Bomba P (Lineal)</h3>
+                            <span class="gallery-subtitle-item">Servicio Pesado</span>
                         </div>
-                        <h3>Bomba P (Lineal)</h3>
-                        <span class="gallery-subtitle-item">Servicio Pesado</span>
-                        <p>Ajuste de gobernadores y sincronización de elementos para motores diesel de gran cilindrada.</p>
                     </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-card">
-                        <div class="gallery-image-wrapper">
-                            <picture>
-                                <source type="image/avif" srcset="assets/bombaRotativa-480.avif 480w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <source type="image/webp" srcset="assets/bombaRotativa-480.webp 480w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <img src="assets/bombaRotativa-480.webp" alt="Reparación Bomba Rotativa" class="gallery-image" width="480" height="479" loading="lazy" decoding="async">
-                            </picture>
+                    <p>Ajuste de gobernadores y sincronización de elementos para motores diesel de gran cilindrada.</p>
+                </article>
+                <article class="gallery-card">
+                    <div class="gallery-media">
+                        <picture>
+                <source type="image/avif" srcset="assets/bombaRotativa-480.avif 480w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/bombaRotativa-480.webp 480w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <img src="assets/bombaRotativa-480.webp" alt="Reparación Bomba Rotativa" class="gallery-image" width="480" height="479" loading="lazy" decoding="async">
+            </picture>
+                        <div class="gallery-overlay">
+                            <h3>Bomba Rotativa</h3>
+                            <span class="gallery-subtitle-item">Sistemas Distribución</span>
                         </div>
-                        <h3>Bomba Rotativa</h3>
-                        <span class="gallery-subtitle-item">Sistemas Distribución</span>
-                        <p>Mantenimiento preventivo y correctivo de bombas tipo VE, garantizando una entrega de combustible uniforme.</p>
                     </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-card">
-                        <div class="gallery-image-wrapper">
-                            <picture>
-                                <source type="image/avif" srcset="assets/bombaVP44-462.avif 462w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <source type="image/webp" srcset="assets/bombaVP44-462.webp 462w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <img src="assets/bombaVP44-462.webp" alt="Diagnóstico Bomba VP44" class="gallery-image" width="462" height="355" loading="lazy" decoding="async">
-                            </picture>
+                    <p>Mantenimiento preventivo y correctivo de bombas tipo VE, garantizando una entrega de combustible uniforme.</p>
+                </article>
+                <article class="gallery-card">
+                    <div class="gallery-media">
+                        <picture>
+                <source type="image/avif" srcset="assets/bombaVP44-462.avif 462w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/bombaVP44-462.webp 462w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <img src="assets/bombaVP44-462.webp" alt="Diagnóstico Bomba VP44" class="gallery-image" width="462" height="355" loading="lazy" decoding="async">
+            </picture>
+                        <div class="gallery-overlay">
+                            <h3>Bomba VP44</h3>
+                            <span class="gallery-subtitle-item">Inyección Electrónica</span>
                         </div>
-                        <h3>Bomba VP44</h3>
-                        <span class="gallery-subtitle-item">Inyección Electrónica</span>
-                        <p>Reparación especializada de módulos electrónicos y mecánica interna con simulación de banco.</p>
                     </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-card">
-                        <div class="gallery-image-wrapper">
-                            <picture>
-                                <source type="image/avif" srcset="assets/inyectores-480.avif 480w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <source type="image/webp" srcset="assets/inyectores-480.webp 480w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <img src="assets/inyectores-480.webp" alt="Limpieza de Inyectores Diesel" class="gallery-image" width="480" height="372" loading="lazy" decoding="async">
-                            </picture>
+                    <p>Reparación especializada de módulos electrónicos y mecánica interna con simulación de banco.</p>
+                </article>
+                <article class="gallery-card">
+                    <div class="gallery-media">
+                        <picture>
+                <source type="image/avif" srcset="assets/inyectores-480.avif 480w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/inyectores-480.webp 480w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <img src="assets/inyectores-480.webp" alt="Limpieza de Inyectores Diesel" class="gallery-image" width="480" height="372" loading="lazy" decoding="async">
+            </picture>
+                        <div class="gallery-overlay">
+                            <h3>Inyectores Diesel</h3>
+                            <span class="gallery-subtitle-item">Rendimiento Térmico</span>
                         </div>
-                        <h3>Inyectores Diesel</h3>
-                        <span class="gallery-subtitle-item">Rendimiento Térmico</span>
-                        <p>Pruebas de estanqueidad y limpieza profunda para recuperar la atomización óptima del combustible.</p>
                     </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-card">
-                        <div class="gallery-image-wrapper">
-                            <picture>
-                                <source type="image/avif" srcset="assets/inyectoresCdi-458.avif 458w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <source type="image/webp" srcset="assets/inyectoresCdi-458.webp 458w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <img src="assets/inyectoresCdi-458.webp" alt="Reparación Inyectores Common Rail" class="gallery-image" width="458" height="442" loading="lazy" decoding="async">
-                            </picture>
+                    <p>Pruebas de estanqueidad y limpieza profunda para recuperar la atomización óptima del combustible.</p>
+                </article>
+                <article class="gallery-card">
+                    <div class="gallery-media">
+                        <picture>
+                <source type="image/avif" srcset="assets/inyectoresCdi-458.avif 458w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/inyectoresCdi-458.webp 458w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <img src="assets/inyectoresCdi-458.webp" alt="Reparación Inyectores Common Rail" class="gallery-image" width="458" height="442" loading="lazy" decoding="async">
+            </picture>
+                        <div class="gallery-overlay">
+                            <h3>Inyectores CRDI</h3>
+                            <span class="gallery-subtitle-item">Inyección Directa</span>
                         </div>
-                        <h3>Inyectores CRDI</h3>
-                        <span class="gallery-subtitle-item">Inyección Directa</span>
-                        <p>Calibración electrónica de inyectores piezoeléctricos y electromagnéticos bajo normas de fabricante.</p>
                     </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="gallery-card">
-                        <div class="gallery-image-wrapper">
-                            <picture>
-                                <source type="image/avif" srcset="assets/inyectorMecanico-327.avif 327w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <source type="image/webp" srcset="assets/inyectorMecanico-327.webp 327w" sizes="(min-width: 960px) 380px, (min-width: 600px) 45vw, 92vw">
-                                <img src="assets/inyectorMecanico-327.webp" alt="Calibración Inyector Mecánico" class="gallery-image" width="327" height="272" loading="lazy" decoding="async">
-                            </picture>
+                    <p>Calibración electrónica de inyectores piezoeléctricos y electromagnéticos bajo normas de fabricante.</p>
+                </article>
+                <article class="gallery-card">
+                    <div class="gallery-media">
+                        <picture>
+                <source type="image/avif" srcset="assets/inyectorMecanico-327.avif 327w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <source type="image/webp" srcset="assets/inyectorMecanico-327.webp 327w" sizes="(min-width: 960px) 25vw, (min-width: 600px) 45vw, 92vw">
+                <img src="assets/inyectorMecanico-327.webp" alt="Calibración Inyector Mecánico" class="gallery-image" width="327" height="272" loading="lazy" decoding="async">
+            </picture>
+                        <div class="gallery-overlay">
+                            <h3>Inyector Mecánico</h3>
+                            <span class="gallery-subtitle-item">Sistemas Convencionales</span>
                         </div>
-                        <h3>Inyector Mecánico</h3>
-                        <span class="gallery-subtitle-item">Sistemas Convencionales</span>
-                        <p>Regulación de presión de apertura y comprobación del patrón de pulverización.</p>
                     </div>
-                </div>
-
+                    <p>Regulación de presión de apertura y comprobación del patrón de pulverización.</p>
+                </article>
             </div>
         </div>
     </section>
 
-    <section id="faq" class="faq">
-    <div class="container">
-        <h2>Preguntas Frecuentes</h2>
-        <div class="faq-grid">
-
-            <details class="faq-item" name="faq">
-                <summary class="faq-question">
-                    <h3>¿Cuánto tiempo demora una reparación?</h3>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </summary>
-                <div class="faq-answer">
-                    <p>El tiempo varía de acuerdo al sistema al que pertenece la bomba y los inyectores, pero generalmente el proceso toma entre 1 a 2 días laborables.</p>
-                </div>
-            </details>
-
-            <details class="faq-item" name="faq">
-                <summary class="faq-question">
-                    <h3>¿Atienden transportistas y flotas?</h3>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </summary>
-                <div class="faq-answer">
-                    <p>Atendemos al público en general. En el caso de flotas vehiculares, se puede considerar un descuento adicional dependiendo del número de unidades.</p>
-                </div>
-            </details>
-
-            <details class="faq-item" name="faq">
-                <summary class="faq-question">
-                    <h3>¿Qué equipos utilizan para las pruebas?</h3>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </summary>
-                <div class="faq-answer">
-                    <p>Contamos con tecnología de punta: Escáner Launch OBD2, Opacímetro Bosch, Bancos de prueba Speedman CRDI, Hartridge para sistemas Cummins, Dayel para CRDI y banco específico para inyectores a gasolina.</p>
-                </div>
-            </details>
-
-            <details class="faq-item" name="faq">
-                <summary class="faq-question">
-                    <h3>¿Ofrecen garantías?</h3>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </summary>
-                <div class="faq-answer">
-                    <p>Utilizamos repuestos originales. La durabilidad y garantía se asegura mediante el mantenimiento preventivo del cliente en el cambio de filtros y la calidad del suministro de combustible.</p>
-                </div>
-            </details>
-
-            <details class="faq-item" name="faq">
-                <summary class="faq-question">
-                    <h3>¿Venden repuestos?</h3>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </summary>
-                <div class="faq-answer">
-                    <p>Disponemos de un amplio stock de repuestos originales para todo tipo de sistema de inyección Diesel.</p>
-                </div>
-            </details>
-
-            <details class="faq-item" name="faq">
-                <summary class="faq-question">
-                    <h3>¿Realizan reparaciones urgentes?</h3>
-                    <span class="faq-icon" aria-hidden="true">+</span>
-                </summary>
-                <div class="faq-answer">
-                    <p>Dentro de nuestros horarios establecidos, realizamos todos los trabajos necesarios de forma eficiente para que su vehículo retorne a operación lo antes posible.</p>
-                </div>
-            </details>
-
+    <section id="faq" class="section section--surface faq">
+        <div class="container faq-layout">
+            <div class="faq-intro">
+                <span class="section-label">Resolvemos sus dudas</span>
+                <h2>Preguntas Frecuentes</h2>
+            </div>
+            <div class="faq-grid">
+                <details class="faq-item" name="faq">
+                    <summary class="faq-question">
+                        <h3>¿Cuánto tiempo demora una reparación?</h3>
+                        <span class="faq-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>El tiempo varía de acuerdo al sistema al que pertenece la bomba y los inyectores, pero generalmente el proceso toma entre 1 a 2 días laborables.</p>
+                    </div>
+                </details>
+                <details class="faq-item" name="faq">
+                    <summary class="faq-question">
+                        <h3>¿Atienden transportistas y flotas?</h3>
+                        <span class="faq-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Atendemos al público en general. En el caso de flotas vehiculares, se puede considerar un descuento adicional dependiendo del número de unidades.</p>
+                    </div>
+                </details>
+                <details class="faq-item" name="faq">
+                    <summary class="faq-question">
+                        <h3>¿Qué equipos utilizan para las pruebas?</h3>
+                        <span class="faq-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Contamos con tecnología de punta: Escáner Launch OBD2, Opacímetro Bosch, Bancos de prueba Speedman CRDI, Hartridge para sistemas Cummins, Dayel para CRDI y banco específico para inyectores a gasolina.</p>
+                    </div>
+                </details>
+                <details class="faq-item" name="faq">
+                    <summary class="faq-question">
+                        <h3>¿Ofrecen garantías?</h3>
+                        <span class="faq-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Utilizamos repuestos originales. La durabilidad y garantía se asegura mediante el mantenimiento preventivo del cliente en el cambio de filtros y la calidad del suministro de combustible.</p>
+                    </div>
+                </details>
+                <details class="faq-item" name="faq">
+                    <summary class="faq-question">
+                        <h3>¿Venden repuestos?</h3>
+                        <span class="faq-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Disponemos de un amplio stock de repuestos originales para todo tipo de sistema de inyección Diesel.</p>
+                    </div>
+                </details>
+                <details class="faq-item" name="faq">
+                    <summary class="faq-question">
+                        <h3>¿Realizan reparaciones urgentes?</h3>
+                        <span class="faq-icon" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Dentro de nuestros horarios establecidos, realizamos todos los trabajos necesarios de forma eficiente para que su vehículo retorne a operación lo antes posible.</p>
+                    </div>
+                </details>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-    <section id="contacto-form" class="contact-form-section">
+    <section id="contacto-form" class="section contact-form-section">
         <div class="container">
-            <h2 data-aos="fade-up">Contáctenos Directamente</h2>
-            <p class="form-subtitle" data-aos="fade-up" data-aos-delay="100">Complete el formulario y nos pondremos en contacto en menos de 24 horas</p>
+            <div class="section-header">
+                <span class="section-label">Contacto</span>
+                <h2>Contáctenos Directamente</h2>
+                <p class="form-subtitle">Complete el formulario y nos pondremos en contacto en menos de 24 horas</p>
+            </div>
             <div class="form-container">
 
-                <form id="contactForm" class="contact-form" novalidate data-aos="fade-right">
+                <form id="contactForm" class="contact-form" novalidate>
                     <div class="hp-field" aria-hidden="true">
                         <label for="sitio_web">No completar este campo</label>
                         <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off" maxlength="80">
@@ -735,7 +757,7 @@
                             <option value="otro">Otro</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group--full">
                         <label for="servicio">Servicio Requerido *</label>
                         <select id="servicio" name="servicio" required>
                             <option value="">Seleccione un servicio</option>
@@ -747,48 +769,48 @@
                             <option value="otro">Otro</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group--full">
                         <label for="mensaje">Descripción del Problema</label>
                         <textarea id="mensaje" name="mensaje" placeholder="Cuéntenos qué problema tiene su vehículo..." rows="4" maxlength="1000"></textarea>
                     </div>
-                    <div class="form-group checkbox">
+                    <div class="form-group form-group--full checkbox">
                         <input type="checkbox" id="terminos" name="terminos" required>
                         <label for="terminos">Acepto los términos y condiciones *</label>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-large">Enviar Solicitud</button>
-                    <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+                    <div class="form-group--full">
+                        <button type="submit" class="btn btn-primary btn-large">Enviar Solicitud</button>
+                        <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+                    </div>
                 </form>
 
-                <div class="form-info" data-aos="fade-left" data-aos-delay="200">
+                <div class="form-info">
                     <h3>¿Prefiere contactarnos directamente?</h3>
                     <div class="info-item">
-                        <span class="info-icon">📱</span>
+                        <span class="info-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-message-circle"/></svg></span>
                         <div>
                             <strong>WhatsApp</strong>
-                            <p>
-                                Oficina: <a href="https://wa.me/593991231310" target="_blank" rel="noopener noreferrer">0991231310</a><br>
-                                Taller: <a href="https://wa.me/593988373185" target="_blank" rel="noopener noreferrer">0988373185</a>
-                            </p>
+                            <p>Oficina: <a href="https://wa.me/593991231310" target="_blank" rel="noopener noreferrer">0991231310</a><br>Taller: <a href="https://wa.me/593988373185" target="_blank" rel="noopener noreferrer">0988373185</a></p>
                         </div>
                     </div>
                     <div class="info-item">
-                        <span class="info-icon">📞</span>
+                        <span class="info-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg></span>
                         <div>
                             <strong>Teléfonos</strong>
                             <p>Oficina: <a href="tel:+593991231310">0991231310</a><br>Taller: <a href="tel:+593988373185">0988373185</a></p>
                         </div>
                     </div>
                     <div class="info-item">
-                        <span class="info-icon">📧</span>
+                        <span class="info-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg></span>
                         <div>
                             <strong>Email</strong>
                             <p><a href="mailto:laboratoriodieselmg@hotmail.com">laboratoriodieselmg@hotmail.com</a></p>
                         </div>
                     </div>
                     <div class="info-item">
-                        <span class="info-icon">🕒</span>
+                        <span class="info-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg></span>
                         <div>
                             <strong>Horario de Atención</strong>
+                            <!-- TODO(cliente): confirmar horario de Oficina ("13:00 y 13:00 a 18:30" parece un error de tipeo); se conserva tal cual -->
                             <p>
                                 <strong>Talleres:</strong> Lun a Vie: 8:30 a 13:00 y 14:30 a 18:30<br>
                                 <strong>Oficina:</strong> Lun a Vie: 8:30 a 13:00 y 13:00 a 18:30<br>
@@ -802,35 +824,40 @@
         </div>
     </section>
 
-    <section id="ubicacion" class="location">
+    <section id="ubicacion" class="section section--surface location">
         <div class="container">
-            <h2>Encuéntrenos Fácilmente</h2>
+            <div class="section-header">
+                <span class="section-label">Ubicación</span>
+                <h2>Encuéntrenos Fácilmente</h2>
+            </div>
             <div class="location-content">
-                <div class="map-container" id="mapContainer">
-                    <div class="map-facade">
-                        <picture>
-                            <source type="image/avif" srcset="assets/map-facade-800.avif 800w" sizes="(min-width: 960px) 560px, 100vw">
-                            <source type="image/webp" srcset="assets/map-facade-800.webp 800w" sizes="(min-width: 960px) 560px, 100vw">
-                            <img src="assets/map-facade-800.webp" alt="Fachada de Laboratorio Diesel MG en Cuenca" class="map-facade-img" width="800" height="449" loading="lazy" decoding="async">
-                        </picture>
-                        <button type="button" class="btn btn-primary map-load-btn" id="mapLoadBtn" data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15420.153370027852!2d-79.01025742236428!3d-2.8881696633759204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91cd1821530abf41%3A0x8997e5faeae11bc9!2sLABORATORIO%20DIESEL%20MG!5e1!3m2!1ses-419!2sec!4v1778079345253!5m2!1ses-419!2sec" aria-controls="mapContainer">Ver mapa</button>
+                <div>
+                    <div class="map-container" id="mapContainer">
+                        <div class="map-facade">
+                            <picture>
+                                <source type="image/avif" srcset="assets/map-facade-800.avif 800w" sizes="(min-width: 960px) 560px, 100vw">
+                                <source type="image/webp" srcset="assets/map-facade-800.webp 800w" sizes="(min-width: 960px) 560px, 100vw">
+                                <img src="assets/map-facade-800.webp" alt="Fachada de Laboratorio Diesel MG en Cuenca" class="map-facade-img" width="800" height="449" loading="lazy" decoding="async">
+                            </picture>
+                            <button type="button" class="btn btn-primary map-load-btn" id="mapLoadBtn" data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15420.153370027852!2d-79.01025742236428!3d-2.8881696633759204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91cd1821530abf41%3A0x8997e5faeae11bc9!2sLABORATORIO%20DIESEL%20MG!5e1!3m2!1ses-419!2sec!4v1778079345253!5m2!1ses-419!2sec" aria-controls="mapContainer"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-map-pin"/></svg> Ver mapa</button>
+                        </div>
                     </div>
+                    <p class="map-fallback"><a href="https://maps.google.com/?cid=9914645970524642249" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a></p>
                 </div>
-                <p class="map-fallback"><a href="https://maps.google.com/?cid=9914645970524642249" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a></p>
                 <div class="contact-info">
                     <h3>Información de Contacto</h3>
-                    <p><strong>📞 Teléfono Oficina:</strong> <a href="tel:+593991231310">0991231310</a></p>
-                    <p><strong>📞 Teléfono Taller:</strong> <a href="tel:+593988373185">0988373185</a></p>
-                    <p><strong>📧 Email:</strong> <a href="mailto:laboratoriodieselmg@hotmail.com">laboratoriodieselmg@hotmail.com</a></p>
-                    <p><strong>📍 Ubicación:</strong> Cuenca, Azuay, Ecuador</p>
-                    <p><strong>🕒 Horario de Atención:</strong><br>
-                        • <strong>Talleres:</strong> Lun a Vie 8:30 a 13:00 y 14:30 a 18:30<br>
-                        • <strong>Oficina:</strong> Lun a Vie 8:30 a 13:00 y 13:00 a 18:30<br>
-                        • <strong>Sábados:</strong> 8:30 a 13:00
-                    </p>
-                    <a href="https://wa.me/593988373185" class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">
-                        💬 Contactar al Taller (WhatsApp)
-                    </a>
+                    <ul class="contact-list">
+                        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg><span><strong>Teléfono Oficina</strong><a href="tel:+593991231310">0991231310</a></span></li>
+                        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg><span><strong>Teléfono Taller</strong><a href="tel:+593988373185">0988373185</a></span></li>
+                        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg><span><strong>Email</strong><a href="mailto:laboratoriodieselmg@hotmail.com">laboratoriodieselmg@hotmail.com</a></span></li>
+                        <!-- TODO(cliente): agregar dirección exacta (calle y número) cuando la proporcione el cliente -->
+                        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-map-pin"/></svg><span><strong>Ubicación</strong>Cuenca, Azuay, Ecuador</span></li>
+                        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg><span><strong>Horario de Atención</strong>
+                            <span class="hours">• <strong>Talleres:</strong> Lun a Vie 8:30 a 13:00 y 14:30 a 18:30<br>
+                            • <strong>Oficina:</strong> Lun a Vie 8:30 a 13:00 y 13:00 a 18:30<br>
+                            • <strong>Sábados:</strong> 8:30 a 13:00</span></span></li>
+                    </ul>
+                    <a href="https://wa.me/593988373185" class="btn btn-primary btn-whatsapp" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-message-circle"/></svg> Contactar al Taller (WhatsApp)</a>
                 </div>
             </div>
         </div>
@@ -840,7 +867,7 @@
 
     <footer class="footer">
         <div class="container">
-            <div class="footer-content" data-aos="fade-up">
+            <div class="footer-content">
                 <div class="footer-section">
                     <h4>Laboratorio Diesel MG</h4>
                     <p>Especialistas en diagnóstico, calibración y reparación de sistemas diesel. 10 años de trayectoria respaldando su motor.</p>
@@ -877,47 +904,10 @@
         </div>
     </footer>
 
-    <div class="whatsapp-speed-dial" id="waSpeedDial">
+    <a class="wa-float" href="https://wa.me/593988373185?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20en%20el%20taller." target="_blank" rel="noopener noreferrer" aria-label="Cotizar con el taller por WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M20.52 3.48C18.31 1.27 15.26 0 12 0 5.48 0 0.07 5.41 0.07 11.93c0 2.1.55 4.15 1.6 5.97L0 24l6.35-1.67c1.75.96 3.73 1.47 5.73 1.47 6.54 0 11.93-5.42 11.93-11.93 0-3.19-1.24-6.19-3.49-8.44zM12 21.85c-1.79 0-3.54-.47-5.07-1.36l-.36-.21-3.74.98.99-3.63-.23-.37C2.62 15.52 2.1 13.76 2.1 11.93c0-5.45 4.43-9.88 9.9-9.88 2.64 0 5.12 1.03 6.99 2.9 1.87 1.87 2.9 4.35 2.9 6.99 0 5.45-4.43 9.88-9.89 9.88zm5.41-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.19-.57-.35z"/></svg>
+    </a>
 
-        <button type="button" class="speed-dial-trigger" id="waSpeedDialTrigger" aria-label="Contáctenos por WhatsApp" aria-expanded="false" aria-controls="waSpeedDialMenu">
-            <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                <path d="M20.52 3.48C18.31 1.27 15.26 0 12 0 5.48 0 0.07 5.41 0.07 11.93c0 2.1.55 4.15 1.6 5.97L0 24l6.35-1.67c1.75.96 3.73 1.47 5.73 1.47 6.54 0 11.93-5.42 11.93-11.93 0-3.19-1.24-6.19-3.49-8.44zM12 21.85c-1.79 0-3.54-.47-5.07-1.36l-.36-.21-3.74.98.99-3.63-.23-.37C2.62 15.52 2.1 13.76 2.1 11.93c0-5.45 4.43-9.88 9.9-9.88 2.64 0 5.12 1.03 6.99 2.9 1.87 1.87 2.9 4.35 2.9 6.99 0 5.45-4.43 9.88-9.89 9.88zm5.41-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.19-.57-.35z"/>
-            </svg>
-        </button>
-
-        <div class="speed-dial-menu" id="waSpeedDialMenu">
-
-            <div class="speed-dial-item">
-                <span class="speed-dial-label">Cotizar taller</span>
-                <a class="speed-dial-btn-small" href="https://wa.me/593988373185?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20en%20el%20taller." target="_blank" rel="noopener noreferrer" title="Cotizar servicio">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                        <path d="M20.52 3.48C18.31 1.27 15.26 0 12 0 5.48 0 0.07 5.41 0.07 11.93c0 2.1.55 4.15 1.6 5.97L0 24l6.35-1.67c1.75.96 3.73 1.47 5.73 1.47 6.54 0 11.93-5.42 11.93-11.93 0-3.19-1.24-6.19-3.49-8.44zM12 21.85c-1.79 0-3.54-.47-5.07-1.36l-.36-.21-3.74.98.99-3.63-.23-.37C2.62 15.52 2.1 13.76 2.1 11.93c0-5.45 4.43-9.88 9.9-9.88 2.64 0 5.12 1.03 6.99 2.9 1.87 1.87 2.9 4.35 2.9 6.99 0 5.45-4.43 9.88-9.89 9.88zm5.41-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.19-.57-.35z"/>
-                    </svg>
-                </a>
-            </div>
-
-            <div class="speed-dial-item">
-                <span class="speed-dial-label">Consulta Oficina</span>
-                <a class="speed-dial-btn-small" href="https://wa.me/593991231310?text=Hola%2C%20tengo%20una%20consulta%20para%20la%20oficina." target="_blank" rel="noopener noreferrer" title="Consulta urgente">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
-                    </svg>
-                </a>
-            </div>
-
-            <div class="speed-dial-item">
-                <span class="speed-dial-label">Mensaje general</span>
-                <a class="speed-dial-btn-small" href="https://wa.me/593988373185?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Laboratorio%20Diesel%20MG." target="_blank" rel="noopener noreferrer" title="Mensaje general">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
-                    </svg>
-                </a>
-            </div>
-
-        </div>
-
-    </div>
-
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </body>
 </html>

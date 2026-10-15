@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeScrollSpy();
-    initializeWhatsAppSpeedDial();
+    initializeHeader();
     initializeContactForm();
     initializeMapFacade();
     updateYear();
@@ -83,36 +83,26 @@ function initializeMobileMenu() {
 }
 
 /* ============================================
-   BOTÓN DE WHATSAPP (SPEED-DIAL)
+   CABECERA COMPACTA AL HACER SCROLL
    ============================================ */
 
-function initializeWhatsAppSpeedDial() {
-    const dial = document.getElementById('waSpeedDial');
-    const trigger = document.getElementById('waSpeedDialTrigger');
-    if (!dial || !trigger) return;
+function initializeHeader() {
+    const header = document.getElementById('siteHeader');
+    if (!header) return;
 
-    function setOpen(open, returnFocus) {
-        dial.classList.toggle('open', open);
-        trigger.setAttribute('aria-expanded', String(open));
-        if (!open && returnFocus) trigger.focus();
+    let ticking = false;
+    function update() {
+        header.classList.toggle('is-scrolled', window.scrollY > 24);
+        ticking = false;
     }
 
-    trigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        setOpen(!dial.classList.contains('open'));
-    });
-
-    dial.querySelectorAll('.speed-dial-btn-small').forEach(item => {
-        item.addEventListener('click', () => setOpen(false));
-    });
-
-    document.addEventListener('click', function(e) {
-        if (!dial.contains(e.target)) setOpen(false);
-    });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && dial.classList.contains('open')) setOpen(false, true);
-    });
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }, { passive: true });
+    update();
 }
 
 /* ============================================
