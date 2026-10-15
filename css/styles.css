@@ -766,3 +766,46 @@ html:not(.js) .mobile-nav { position: static; visibility: visible; opacity: 1; t
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* ============================================
+   ANIMACIONES DE SCROLL (solo transform / opacity;
+   clip-path únicamente en la galería)
+   Sin JS (.js ausente) todo permanece visible.
+   ============================================ */
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(24px); }
+}
+
+@keyframes clip-in {
+    from { clip-path: inset(0 0 100% 0); }
+    to   { clip-path: inset(0); }
+}
+
+@keyframes image-settle {
+    from { transform: scale(1.06); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    /* Hero: el texto entra al cargar (la imagen no se anima en opacidad) */
+    .js [data-hero] { animation: reveal 700ms var(--ease) var(--reveal-delay, 0ms) backwards; }
+    .js [data-hero="1"] { --reveal-delay: 70ms; }
+    .js [data-hero="2"] { --reveal-delay: 140ms; }
+    .js [data-hero="3"] { --reveal-delay: 210ms; }
+
+    /* Revelado al entrar en vista (una sola vez) */
+    .js [data-reveal]:not(.is-visible) { opacity: 0; }
+    .js [data-reveal].is-visible { animation: reveal 700ms var(--ease) var(--reveal-delay, 0ms) backwards; }
+
+    /* Galería: máscara de abajo hacia arriba + imagen 1.06 → 1 */
+    .js [data-reveal="clip"]:not(.is-visible) { opacity: 1; }
+    .js [data-reveal="clip"].is-visible { animation: none; }
+    .js [data-reveal="clip"]:not(.is-visible) .gallery-media { clip-path: inset(0 0 100% 0); }
+    .js [data-reveal="clip"]:not(.is-visible) > p { opacity: 0; }
+    .js [data-reveal="clip"].is-visible .gallery-media { animation: clip-in 700ms var(--ease) var(--reveal-delay, 0ms) backwards; }
+    .js [data-reveal="clip"].is-visible .gallery-image { animation: image-settle 900ms var(--ease) var(--reveal-delay, 0ms) backwards; }
+    .js [data-reveal="clip"].is-visible > p { animation: reveal 700ms var(--ease) calc(var(--reveal-delay, 0ms) + 200ms) backwards; }
+
+    /* Parallax del hero (lo mueve el JS, solo escritorio) */
+    [data-parallax] { will-change: transform; }
+}

@@ -3,10 +3,17 @@
    Sin dependencias. Compatible con CSP script-src 'self'.
    ============================================ */
 
+window.__ldmgReady = true;
+
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const isDesktop = window.matchMedia('(min-width: 960px)');
+
 document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeScrollSpy();
-    initializeHeader();
+    initializeScrollEffects();
+    initializeReveal();
+    initializeCounters();
     initializeContactForm();
     initializeMapFacade();
     updateYear();
@@ -83,17 +90,39 @@ function initializeMobileMenu() {
 }
 
 /* ============================================
-   CABECERA COMPACTA AL HACER SCROLL
+   EFECTOS LIGADOS AL SCROLL
+   Un solo listener pasivo + requestAnimationFrame:
+   cabecera compacta, barra de progreso (scaleX) y parallax del hero.
    ============================================ */
 
-function initializeHeader() {
-    const header = document.getElementById('siteHeader');
-    if (!header) return;
+const PARALLAX_MAX = 40;
 
+function initializeScrollEffects() {
+    const header = document.getElementById('siteHeader');
+    const progress = document.getElementById('scrollProgress');
+    const parallaxEl = document.querySelector('[data-parallax]');
     let ticking = false;
+
     function update() {
-        header.classList.toggle('is-scrolled', window.scrollY > 24);
         ticking = false;
+        const y = window.scrollY;
+
+        if (header) header.classList.toggle('is-scrolled', y > 24);
+
+        if (progress) {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
+        }
+
+        if (parallaxEl) {
+            // Sin desplazamientos para quien prefiere menos movimiento, ni en pantallas pequeñas
+            if (isDesktop.matches && !reducedMotion.matches) {
+                const offset = Math.min(PARALLAX_MAX, Math.max(0, y * 0.08));
+                parallaxEl.style.transform = 'translate3d(0,' + offset.toFixed(1) + 'px,0)';
+            } else {
+                parallaxEl.style.transform = '';
+            }
+        }
     }
 
     window.addEventListener('scroll', function() {
@@ -102,7 +131,81 @@ function initializeHeader() {
             requestAnimationFrame(update);
         }
     }, { passive: true });
+    window.addEventListener('resize', update);
     update();
+}
+
+/* ============================================
+   REVELADO AL ENTRAR EN VISTA (una sola vez)
+   Escalonado de 70 ms entre hermanos de un [data-stagger]
+   que entran en vista a la vez.
+   ============================================ */
+
+const STAGGER_MS = 70;
+
+function initializeReveal() {
+    const items = document.querySelectorAll('[data-reveal]');
+    if (!items.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('is-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver(function(entries, obs) {
+        const entering = entries
+            .filter(entry => entry.isIntersecting)
+            .sort((a, b) => (a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1);
+        const counters = new Map();
+
+        entering.forEach(function(entry) {
+            const el = entry.target;
+            const parent = el.parentElement;
+            let index = 0;
+            if (parent && parent.hasAttribute('data-stagger')) {
+                index = counters.get(parent) || 0;
+                counters.set(parent, index + 1);
+            }
+            el.style.setProperty('--reveal-delay', (index * STAGGER_MS) + 'ms');
+            el.classList.add('is-visible');
+            obs.unobserve(el);
+        });
+    }, { threshold: 0.15 });
+
+    items.forEach(el => observer.observe(el));
+}
+
+/* ============================================
+   CONTADOR ANIMADO (años de trayectoria)
+   ============================================ */
+
+function initializeCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    if (!counters.length || reducedMotion.matches || !('IntersectionObserver' in window)) return;
+
+    const DURATION = 1400;
+    const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+    const observer = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = parseInt(el.dataset.count, 10);
+            const start = performance.now();
+            obs.unobserve(el);
+
+            (function tick(now) {
+                const t = Math.min(1, (now - start) / DURATION);
+                el.textContent = String(Math.round(target * easeOut(t)));
+                if (t < 1) requestAnimationFrame(tick);
+            })(start);
+        });
+    }, { threshold: 0.15 });
+
+    counters.forEach(function(el) {
+        el.textContent = '0';
+        observer.observe(el);
+    });
 }
 
 /* ============================================
