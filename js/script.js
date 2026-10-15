@@ -1,191 +1,117 @@
 /* ============================================
    LABORATORIO DIESEL MG - SCRIPT PRINCIPAL
+   Sin dependencias. Compatible con CSP script-src 'self'.
    ============================================ */
 
-// Inicialización de AOS (Animate on Scroll)
-if (typeof AOS !== 'undefined') {
-    AOS.init({
-        duration: 900,
-        easing: 'ease-in-out-cubic',
-        offset: 100,
-        once: false,
-        mirror: true,
-        disable: false
-    });
-}
-
-// Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-    }
-    
-    initializeNavigation();
     initializeMobileMenu();
+    initializeScrollSpy();
     initializeWhatsAppSpeedDial();
-    initializeFaqAccordion();
     initializeContactForm();
-    initializeScrollSpyNavigation();
-    initializeSmoothScroll();
-    initializeIntersectionObserver();
-});
-
-// Refreshear AOS cuando la página está completamente cargada
-window.addEventListener('load', function() {
-    if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-    }
+    initializeMapFacade();
+    updateYear();
 });
 
 /* ============================================
-   NAVEGACIÓN ACTIVA AL SCROLLEAR
+   NAVEGACIÓN ACTIVA AL HACER SCROLL
    ============================================ */
 
-function initializeScrollSpyNavigation() {
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const sections = document.querySelectorAll('section[id]');
+function initializeScrollSpy() {
+    const links = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
 
-    window.addEventListener('scroll', throttle(function() {
-        let currentSection = '';
+    const byId = new Map();
+    links.forEach(link => byId.set(link.getAttribute('href').slice(1), link));
 
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.pageYOffset >= sectionTop - 200) {
-                currentSection = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').slice(1) === currentSection) {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const link = byId.get(entry.target.id);
+            if (!link) return;
+            if (entry.isIntersecting) {
+                links.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
             }
         });
-    }, 100));
+    }, { rootMargin: '-35% 0px -55% 0px' });
+
+    byId.forEach((link, id) => {
+        const section = document.getElementById(id);
+        if (section) observer.observe(section);
+    });
 }
 
 /* ============================================
-   MENÚ MÓVIL
+   MENÚ MÓVIL (aria-expanded, Esc, clic fuera)
    ============================================ */
 
 function initializeMobileMenu() {
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    const navLinks = mobileNav ? mobileNav.querySelectorAll('a') : [];
+    const btn = document.getElementById('mobileMenuBtn');
+    const nav = document.getElementById('mobileNav');
+    if (!btn || !nav) return;
 
-    if (mobileMenuBtn && mobileNav) {
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('open');
-            mobileNav.classList.toggle('open');
-            mobileNav.setAttribute('aria-hidden', mobileNav.classList.contains('open') ? 'false' : 'true');
-            mobileMenuBtn.setAttribute('aria-expanded', mobileMenuBtn.classList.contains('open'));
-        });
-
-        // Cerrar menú al hacer click en un link
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenuBtn.classList.remove('open');
-                mobileNav.classList.remove('open');
-                mobileNav.setAttribute('aria-hidden', 'true');
-                mobileMenuBtn.setAttribute('aria-expanded', 'false');
-            });
-        });
-
-        // Cerrar al hacer scroll
-        window.addEventListener('scroll', function() {
-            if (mobileMenuBtn.classList.contains('open')) {
-                mobileMenuBtn.classList.remove('open');
-                mobileNav.classList.remove('open');
-                mobileNav.setAttribute('aria-hidden', 'true');
-                mobileMenuBtn.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        // Cerrar al hacer click fuera del menú
-        document.addEventListener('click', function(event) {
-            if (!mobileNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
-                mobileMenuBtn.classList.remove('open');
-                mobileNav.classList.remove('open');
-                mobileNav.setAttribute('aria-hidden', 'true');
-                mobileMenuBtn.setAttribute('aria-expanded', 'false');
-            }
-        });
+    function setOpen(open, returnFocus) {
+        btn.classList.toggle('open', open);
+        nav.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        nav.inert = !open;
+        if (!open && returnFocus) btn.focus();
     }
+
+    setOpen(false);
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        setOpen(!nav.classList.contains('open'));
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && nav.classList.contains('open')) setOpen(false, true);
+    });
+
+    document.addEventListener('click', function(e) {
+        if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) setOpen(false);
+    });
+
+    window.addEventListener('scroll', function() {
+        if (nav.classList.contains('open')) setOpen(false);
+    }, { passive: true });
 }
 
 /* ============================================
-   SPEED-DIAL WHATSAPP
+   BOTÓN DE WHATSAPP (SPEED-DIAL)
    ============================================ */
 
 function initializeWhatsAppSpeedDial() {
-    const waSpeedDial = document.getElementById('waSpeedDial');
-    const waSpeedDialTrigger = document.getElementById('waSpeedDialTrigger');
+    const dial = document.getElementById('waSpeedDial');
+    const trigger = document.getElementById('waSpeedDialTrigger');
+    if (!dial || !trigger) return;
 
-    if (waSpeedDialTrigger && waSpeedDial) {
-        waSpeedDialTrigger.addEventListener('click', function(e) {
-            e.stopPropagation();
-            waSpeedDial.classList.toggle('open');
-            const isOpen = waSpeedDial.classList.contains('open');
-            waSpeedDialTrigger.setAttribute('aria-expanded', isOpen);
-        });
-
-        // Cerrar al hacer click en los botones de opciones
-        const speedDialItems = waSpeedDial.querySelectorAll('.speed-dial-btn-small');
-        speedDialItems.forEach(item => {
-            item.addEventListener('click', function() {
-                waSpeedDial.classList.remove('open');
-                waSpeedDialTrigger.setAttribute('aria-expanded', 'false');
-            });
-        });
-
-        // Cerrar al hacer click fuera
-        document.addEventListener('click', function(event) {
-            if (!waSpeedDial.contains(event.target)) {
-                waSpeedDial.classList.remove('open');
-                waSpeedDialTrigger.setAttribute('aria-expanded', 'false');
-            }
-        });
+    function setOpen(open, returnFocus) {
+        dial.classList.toggle('open', open);
+        trigger.setAttribute('aria-expanded', String(open));
+        if (!open && returnFocus) trigger.focus();
     }
-}
 
-/* ============================================
-   ACORDEÓN FAQ - LABORATORIO DIESEL MG
-   ============================================ */
-
-function toggleFaq(element) {
-    const isActive = element.classList.contains('active');
-
-    // Cerrar todos los demás para un efecto de acordeón real
-    document.querySelectorAll('.faq-question').forEach(q => {
-        if (q !== element) {
-            q.classList.remove('active');
-            q.setAttribute('aria-expanded', 'false');
-        }
+    trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        setOpen(!dial.classList.contains('open'));
     });
 
-    // Alternar el estado del actual
-    element.classList.toggle('active');
-    element.setAttribute('aria-expanded', !isActive);
-}
+    dial.querySelectorAll('.speed-dial-btn-small').forEach(item => {
+        item.addEventListener('click', () => setOpen(false));
+    });
 
-function initializeFaqAccordion() {
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    
-    faqQuestions.forEach(question => {
-        // Evento de Click
-        question.addEventListener('click', function() {
-            toggleFaq(this);
-        });
+    document.addEventListener('click', function(e) {
+        if (!dial.contains(e.target)) setOpen(false);
+    });
 
-        // Soporte para teclado
-        question.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleFaq(this);
-            }
-        });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && dial.classList.contains('open')) setOpen(false, true);
     });
 }
 
@@ -299,272 +225,32 @@ function initializeContactForm() {
 }
 
 /* ============================================
-   NAVEGACIÓN GENERAL CON SCROLL SUAVE
+   MAPA CON FACHADA (el iframe se carga al pedirlo)
    ============================================ */
 
-function initializeNavigation() {
-    const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav a');
+function initializeMapFacade() {
+    const btn = document.getElementById('mapLoadBtn');
+    const container = document.getElementById('mapContainer');
+    if (!btn || !container) return;
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const targetId = href.substring(1);
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    // Actualizar clase active
-                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            }
-        });
+    btn.addEventListener('click', function() {
+        const iframe = document.createElement('iframe');
+        iframe.src = btn.dataset.mapSrc;
+        iframe.title = 'Mapa de ubicación de Laboratorio Diesel MG en Cuenca';
+        iframe.loading = 'lazy';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.allowFullscreen = true;
+        iframe.className = 'map-iframe';
+        container.replaceChildren(iframe);
+        iframe.focus();
     });
-}
-
-/* ============================================
-   SCROLL SUAVE PARA TODOS LOS ENLACES INTERNOS
-   ============================================ */
-
-function initializeSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href !== '#' && document.querySelector(href)) {
-                e.preventDefault();
-                const targetElement = document.querySelector(href);
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-/* ============================================
-   LAZY LOADING DE IMÁGENES
-   ============================================ */
-
-function initializeLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    img.addEventListener('load', function() {
-                        this.classList.add('loaded');
-                    });
-                    observer.unobserve(img);
-                }
-            });
-        }, {
-            rootMargin: '50px'
-        });
-
-        images.forEach(img => imageObserver.observe(img));
-    } else {
-        // Fallback para navegadores sin IntersectionObserver
-        images.forEach(img => {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-        });
-    }
-}
-
-// Inicializar lazy loading si hay imágenes
-if (document.querySelectorAll('img[data-src]').length > 0) {
-    initializeLazyLoading();
-}
-
-/* ============================================
-   CONTADORES ANIMADOS
-   ============================================ */
-
-function animateCounter(element, target, duration = 2000) {
-    if (!element) return;
-
-    let current = 0;
-    const start = Date.now();
-    const increment = target / (duration / 16);
-
-    const updateCounter = () => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target;
-        } else {
-            element.textContent = Math.floor(current);
-            requestAnimationFrame(updateCounter);
-        }
-    };
-
-    updateCounter();
-}
-
-/* ============================================
-   INTERSECTION OBSERVER PARA ANIMACIONES
-   ============================================ */
-
-function initializeIntersectionObserver() {
-    if ('IntersectionObserver' in window) {
-        const elements = document.querySelectorAll('[data-aos]');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.visibility = 'visible';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { 
-            threshold: 0.1,
-            rootMargin: '50px'
-        });
-
-        elements.forEach(el => observer.observe(el));
-    }
-}
-
-/* ============================================
-   PARALLAX EFFECT (opcional)
-   ============================================ */
-
-function initializeParallax() {
-    const parallaxElements = document.querySelectorAll('[data-parallax]');
-
-    if (parallaxElements.length > 0 && 'IntersectionObserver' in window) {
-        window.addEventListener('scroll', throttle(function() {
-            parallaxElements.forEach(element => {
-                const scrollPosition = window.pageYOffset;
-                const elementOffset = element.offsetTop;
-                const elementHeight = element.clientHeight;
-                const distance = scrollPosition - elementOffset;
-
-                if (distance > -window.innerHeight && distance < window.innerHeight) {
-                    const parallaxSpeed = parseFloat(element.dataset.parallax) || 0.5;
-                    element.style.transform = `translateY(${distance * parallaxSpeed}px)`;
-                }
-            });
-        }, 10));
-    }
-}
-
-initializeParallax();
-
-/* ============================================
-   THROTTLE FUNCTION PARA OPTIMIZAR EVENTOS
-   ============================================ */
-
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-/* ============================================
-   DEBOUNCE FUNCTION
-   ============================================ */
-
-function debounce(func, delay) {
-    let timeoutId;
-    return function(...args) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => func.apply(this, args), delay);
-    };
-}
-
-/* ============================================
-   DETECTOR DE CONEXIÓN DE RED
-   ============================================ */
-
-window.addEventListener('online', function() {
-    document.body.classList.remove('offline');
-});
-
-window.addEventListener('offline', function() {
-    document.body.classList.add('offline');
-});
-
-// Verificar estado inicial
-if (!navigator.onLine) {
-    document.body.classList.add('offline');
 }
 
 /* ============================================
    UTILIDADES
    ============================================ */
 
-// Actualizar año en el footer
 function updateYear() {
-    const currentYear = new Date().getFullYear();
-    const yearElements = document.querySelectorAll('[data-year]');
-    yearElements.forEach(el => {
-        el.textContent = currentYear;
-    });
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('[data-year]').forEach(el => { el.textContent = year; });
 }
-
-updateYear();
-
-// Reproducir sonido (opcional)
-function playSound(soundFile) {
-    try {
-        const audio = new Audio(soundFile);
-        audio.volume = 0.3;
-        audio.play().catch(err => {
-            console.log('Audio no disponible:', err);
-        });
-    } catch (e) {
-        console.log('Error al reproducir sonido:', e);
-    }
-}
-
-// Función para copiar al portapapeles
-function copyToClipboard(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => {
-            console.log('✓ Copiado al portapapeles');
-        }).catch(err => {
-            console.error('Error al copiar:', err);
-        });
-    } else {
-        // Fallback para navegadores antiguos
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-    }
-}
-
-/* ============================================
-   EXPORTAR FUNCIONES GLOBALES
-   ============================================ */
-
-window.toggleFaq = toggleFaq;
-window.playSound = playSound;
-window.copyToClipboard = copyToClipboard;
-window.animateCounter = animateCounter;
-window.throttle = throttle;
-window.debounce = debounce;
-
-/* ============================================
-   MENSAJE DE CONSOLA
-   ============================================ */
