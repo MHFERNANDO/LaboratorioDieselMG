@@ -809,26 +809,3 @@ html:not(.js) .mobile-nav { position: static; visibility: visible; opacity: 1; t
     /* Parallax del hero (lo mueve el JS, solo escritorio) */
     [data-parallax] { will-change: transform; }
 }
-
-/* ============================================
-   PÁGINAS LEGALES
-   ============================================ */
-
-.legal { padding-top: clamp(3rem, 6vw, 5rem); }
-.legal__container { max-width: 52rem; }
-.legal h1 { margin-bottom: 1rem; }
-.legal__meta { margin-bottom: 2.5rem; font-size: .875rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.legal h2 { margin: 2.5rem 0 1rem; font-size: clamp(1.3rem, 1.5vw + 1rem, 1.75rem); }
-.legal p, .legal li { color: var(--muted); }
-.legal p { margin-bottom: 1rem; max-width: 46rem; }
-.legal strong { color: var(--text); font-weight: 500; }
-.legal a { color: var(--accent); }
-.legal__list { margin: 0 0 1.25rem; padding-left: 1.25rem; list-style: disc; }
-.legal__list li { margin-bottom: .4rem; padding-left: .25rem; }
-.legal__list li::marker { color: var(--accent); }
-.legal__todo { display: inline-block; padding: .25rem .6rem; border: 1px dashed var(--steel); border-radius: var(--radius); font-size: .8125rem; color: var(--steel); }
-.legal__back { margin-top: 3rem; }
-.legal-back { padding: .55rem 1rem; }
-.legal-back .icon { transform: scaleX(-1); }
-.footer-bottom--flat { margin-top: 0; padding-top: 0; border-top: 0; }
-@media (max-width: 480px) { .legal-back { font-size: .9rem; padding: .5rem .8rem; } }
