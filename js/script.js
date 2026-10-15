@@ -297,7 +297,7 @@ function initializeContactForm() {
         try {
             // Mismo destino que antes (wa.me/593), abierto con noopener
             const link = document.createElement('a');
-            link.href = `https://wa.me/593?text=${encodeURIComponent(whatsappMessage)}`;
+            link.href = `https://wa.me/593988373185?text=${encodeURIComponent(whatsappMessage)}`;
             link.target = '_blank';
             link.rel = 'noopener noreferrer';
             document.body.appendChild(link);
