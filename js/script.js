@@ -189,66 +189,113 @@ function initializeFaqAccordion() {
     });
 }
 
-// ¡IMPORTANTE! Inicia la función cuando cargue la página
-document.addEventListener('DOMContentLoaded', () => {
-    initializeFaqAccordion();
-});
-
 /* ============================================
    FORMULARIO DE CONTACTO
+   Mecanismo original: se arma el mensaje y se abre WhatsApp (wa.me).
+   No hay endpoint ni claves en el cliente.
    ============================================ */
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Teléfono Ecuador: 09XXXXXXXX o +5939XXXXXXXX
+const PHONE_RE = /^(09\d{8}|\+5939\d{8})$/;
+const SUBMIT_COOLDOWN_MS = 6000;
+
 function initializeContactForm() {
-    const contactForm = document.getElementById('contactForm');
+    const form = document.getElementById('contactForm');
+    if (!form) return;
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+    const status = document.getElementById('formStatus');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const phone = form.elements.telefono;
+    const email = form.elements.email;
 
-            const nombre = document.getElementById('nombre')?.value.trim() || '';
-            const email = document.getElementById('email')?.value.trim() || '';
-            const telefono = document.getElementById('telefono')?.value.trim() || '';
-            const servicio = document.getElementById('servicio')?.value || '';
-            const mensaje = document.getElementById('mensaje')?.value.trim() || '';
-            const terminos = document.getElementById('terminos')?.checked || false;
-
-            // Validación básica
-            if (!nombre || !email || !telefono || !servicio || !terminos) {
-                alert('Por favor, complete todos los campos requeridos y acepte los términos.');
-                return;
-            }
-
-            // Validar email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Por favor, ingrese un email válido.');
-                return;
-            }
-
-            // Construir mensaje para WhatsApp
-            const whatsappMessage = `
-*SOLICITUD DE SERVICIO - LABORATORIO DIESEL MG*
-
-*Nombre:* ${nombre}
-*Email:* ${email}
-*Teléfono:* ${telefono}
-*Servicio:* ${servicio}
-${mensaje ? `*Descripción:*\n${mensaje}` : ''}
-
-_Enviado desde el formulario de contacto_
-            `.trim();
-
-            // Abrir WhatsApp con el mensaje
-            const whatsappLink = `https://wa.me/593?text=${encodeURIComponent(whatsappMessage)}`;
-            window.open(whatsappLink, '_blank');
-
-            // Mostrar confirmación
-            alert('¡Gracias! Te hemos redirigido a WhatsApp. Por favor, envía el mensaje.');
-
-            // Limpiar formulario
-            contactForm.reset();
-        });
+    function setStatus(message, type) {
+        if (!status) return;
+        status.textContent = message;
+        status.className = 'form-status' + (type ? ' is-' + type : '');
     }
+
+    function validatePhone() {
+        const value = phone.value.trim();
+        const ok = value === '' || PHONE_RE.test(value);
+        phone.setCustomValidity(ok ? '' : 'Ingrese un teléfono válido: 09XXXXXXXX o +5939XXXXXXXX.');
+        return ok;
+    }
+
+    function validateEmail() {
+        const value = email.value.trim();
+        const ok = value === '' || EMAIL_RE.test(value);
+        email.setCustomValidity(ok ? '' : 'Ingrese un correo electrónico válido.');
+        return ok;
+    }
+
+    phone.addEventListener('input', validatePhone);
+    email.addEventListener('input', validateEmail);
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Honeypot: un humano nunca ve ni completa este campo
+        if (form.elements.sitio_web && form.elements.sitio_web.value !== '') {
+            form.reset();
+            return;
+        }
+
+        validatePhone();
+        validateEmail();
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            setStatus('Revise los campos marcados: hay datos incompletos o con formato inválido.', 'error');
+            return;
+        }
+
+        const nombre = form.elements.nombre.value.trim();
+        const mail = email.value.trim();
+        const telefono = phone.value.trim();
+        const servicioSelect = form.elements.servicio;
+        const servicio = servicioSelect.options[servicioSelect.selectedIndex].text;
+        const vehiculoSelect = form.elements.vehiculo;
+        const vehiculo = vehiculoSelect.value ? vehiculoSelect.options[vehiculoSelect.selectedIndex].text : '';
+        const mensaje = form.elements.mensaje.value.trim();
+
+        submitBtn.disabled = true;
+        submitBtn.setAttribute('aria-disabled', 'true');
+        setStatus('Preparando su solicitud…', 'info');
+
+        const whatsappMessage = [
+            '*SOLICITUD DE SERVICIO - LABORATORIO DIESEL MG*',
+            '',
+            `*Nombre:* ${nombre}`,
+            `*Email:* ${mail}`,
+            `*Teléfono:* ${telefono}`,
+            vehiculo ? `*Vehículo:* ${vehiculo}` : null,
+            `*Servicio:* ${servicio}`,
+            mensaje ? `*Descripción:*\n${mensaje}` : null,
+            '',
+            '_Enviado desde el formulario de contacto_'
+        ].filter(line => line !== null).join('\n');
+
+        try {
+            // Mismo destino que antes (wa.me/593), abierto con noopener
+            const link = document.createElement('a');
+            link.href = `https://wa.me/593?text=${encodeURIComponent(whatsappMessage)}`;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            setStatus('¡Gracias! Lo hemos redirigido a WhatsApp. Por favor, envíe el mensaje.', 'success');
+            form.reset();
+        } catch (err) {
+            setStatus('No pudimos abrir WhatsApp. Inténtelo de nuevo o escríbanos a los números de contacto.', 'error');
+        }
+
+        setTimeout(function() {
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute('aria-disabled');
+        }, SUBMIT_COOLDOWN_MS);
+    });
 }
 
 /* ============================================
@@ -448,12 +495,10 @@ function debounce(func, delay) {
    ============================================ */
 
 window.addEventListener('online', function() {
-    console.log('✓ Conexión a internet restaurada');
     document.body.classList.remove('offline');
 });
 
 window.addEventListener('offline', function() {
-    console.log('✗ Sin conexión a internet');
     document.body.classList.add('offline');
 });
 
@@ -523,6 +568,3 @@ window.debounce = debounce;
 /* ============================================
    MENSAJE DE CONSOLA
    ============================================ */
-
-console.log('%c¡Laboratorio Diesel MG!', 'color: #c41e3a; font-size: 18px; font-weight: bold;');
-console.log('%cEspecialistas en sistemas diesel con 10 años de trayectoria', 'color: #666; font-size: 12px;');

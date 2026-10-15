@@ -1780,3 +1780,49 @@ a {
         grid-template-columns: 1fr;
     }
 }
+/* ============================================
+   FORMULARIO: HONEYPOT Y ESTADO
+   ============================================ */
+
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.form-status {
+    margin-top: 1rem;
+    font-weight: 600;
+    min-height: 1.5em;
+}
+
+.form-status.is-success { color: #1b7a3e; }
+.form-status.is-error   { color: var(--red-dark); }
+.form-status.is-info    { color: var(--gray-500); }
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   PÁGINA 404
+   ============================================ */
+
+.error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    background: var(--gray-900);
+    color: var(--white);
+}
+
+.error-page .logo-img { height: 96px; width: auto; margin: 0 auto 2rem; }
+.error-page h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1rem; color: var(--white); }
+.error-page p { color: var(--gray-300); margin-bottom: 2rem; }
+.error-page .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
