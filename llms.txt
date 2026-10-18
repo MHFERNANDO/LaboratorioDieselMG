@@ -1,0 +1,32 @@
+# Laboratorio Diesel MG
+
+> Laboratorio de inyección diesel en Cuenca, Ecuador. Diagnóstico computarizado, limpieza, calibración y reparación de inyectores Common Rail y de bombas de inyección diesel.
+> Atiende camiones, buses, furgones y tractocamiones; el tiempo habitual de reparación es de 1 a 2 días laborables.
+
+## Datos del negocio
+
+- Dirección: Calle Vieja 922 y Mercedes Quinde, Cuenca, Azuay, Ecuador (Plus Code 4265+PG)
+- Ubicación en Google Maps: https://maps.google.com/?cid=9914645970524642249
+- Cómo llegar: https://www.google.com/maps/dir/?api=1&destination=-2.8881689,-78.9912038
+- Teléfono / WhatsApp del taller: 0988373185 (https://wa.me/593988373185)
+- Teléfono / WhatsApp de la oficina: 0991231310 (https://wa.me/593991231310)
+- Email: laboratoriodieselmg@hotmail.com
+- Horario: Talleres, lunes a viernes de 8:30 a 13:00 y de 14:30 a 18:30; sábados de 8:30 a 13:00. La oficina atiende de lunes a viernes (horario por confirmar).
+- Facebook: https://www.facebook.com/laboratoridieselmg/
+
+## Servicios
+
+- Diagnóstico computarizado de inyección con escáner Launch OBD2 y opacímetro Bosch
+- Limpieza, calibración y reparación de inyectores mecánicos, Common Rail, UI y UP
+- Revisión y reparación de bombas de inyección: lineal P, rotativa VE, CRDI y VP44
+- Limpieza ultrasónica de inyectores a gasolina
+- Análisis de fallas del sistema de combustible
+
+## Páginas del sitio
+
+- [Inicio](https://www.laboratoriodieselmg.com/): servicios, sistemas que reparamos, equipos, consejos, preguntas frecuentes, contacto y ubicación
+- [Inyectores Common Rail en Cuenca](https://www.laboratoriodieselmg.com/inyectores-common-rail-cuenca/): limpieza, calibración y reparación de inyectores CRDI
+- [Bombas de inyección diesel en Cuenca](https://www.laboratoriodieselmg.com/bombas-de-inyeccion-diesel-cuenca/): bombas lineal P, rotativa VE y CRDI
+- [Bomba VP44 en Cuenca](https://www.laboratoriodieselmg.com/bomba-vp44-cuenca/): reparación de módulo electrónico y mecánica de la VP44
+- [Diagnóstico computarizado diesel en Cuenca](https://www.laboratoriodieselmg.com/diagnostico-computarizado-diesel-cuenca/): escáner Launch OBD2 y opacímetro
+- [Limpieza de inyectores por ultrasonido en Cuenca](https://www.laboratoriodieselmg.com/limpieza-inyectores-ultrasonido-cuenca/): inyectores a gasolina

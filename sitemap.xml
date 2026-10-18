@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc>https://www.laboratoriodieselmg.com/</loc>
-      <lastmod>2026-10-15</lastmod>
-      <priority>1.0</priority>
-   </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.laboratoriodieselmg.com/</loc>
+    <lastmod>2026-10-18</lastmod>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/hero-1200.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/og-image.jpg</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/bombaRotativa-480.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/bombaCrdi-342.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/bombaVP44-462.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/bombaP-327.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/inyectores-480.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/inyectoresCdi-458.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/inyectorMecanico-327.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.laboratoriodieselmg.com/inyectores-common-rail-cuenca/</loc>
+    <lastmod>2026-10-18</lastmod>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/inyectoresCdi-458.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.laboratoriodieselmg.com/bombas-de-inyeccion-diesel-cuenca/</loc>
+    <lastmod>2026-10-18</lastmod>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/bombaRotativa-480.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/bombaP-327.webp</image:loc></image:image>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/bombaCrdi-342.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.laboratoriodieselmg.com/bomba-vp44-cuenca/</loc>
+    <lastmod>2026-10-18</lastmod>
+      <image:image><image:loc>https://www.laboratoriodieselmg.com/assets/bombaVP44-462.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://www.laboratoriodieselmg.com/diagnostico-computarizado-diesel-cuenca/</loc>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.laboratoriodieselmg.com/limpieza-inyectores-ultrasonido-cuenca/</loc>
+    <lastmod>2026-10-18</lastmod>
+  </url>
 </urlset>
