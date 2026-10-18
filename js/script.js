@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeScrollSpy();
     initializeHeader();
-    initializeContactForm();
     initializeMapFacade();
     initializeFaq();
     initializeReveals();
@@ -26,24 +25,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeScrollSpy() {
     const links = document.querySelectorAll('.nav-links a[href^="#"]');
-    if (!links.length || !('IntersectionObserver' in window)) return;
+    const sections = Array.from(document.querySelectorAll('main > section[id]'));
+    if (!links.length || !sections.length) return;
 
     const byId = new Map();
     links.forEach(link => byId.set(link.getAttribute('href').slice(1), link));
 
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            const link = byId.get(entry.target.id);
-            if (!link || !entry.isIntersecting) return;
-            links.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-        });
-    }, { rootMargin: '-35% 0px -55% 0px' });
+    let current = null;
+    let ticking = false;
 
-    byId.forEach((link, id) => {
-        const section = document.getElementById(id);
-        if (section) observer.observe(section);
-    });
+    // La sección activa es la última cuyo borde superior ya pasó la línea de lectura.
+    // Si esa sección no tiene ítem en la navegación, no se marca nada.
+    function update() {
+        ticking = false;
+        const line = window.innerHeight * 0.35;
+        let active = sections[0];
+        sections.forEach(function(section) {
+            if (section.getBoundingClientRect().top <= line) active = section;
+        });
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+            active = sections[sections.length - 1];
+        }
+        const link = byId.get(active.id) || null;
+        if (link === current) return;
+        links.forEach(l => l.classList.remove('active'));
+        if (link) link.classList.add('active');
+        current = link;
+    }
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
 }
 
 /* ============================================
@@ -280,115 +297,6 @@ function initializeFaq() {
                 );
             }
         });
-    });
-}
-
-/* ============================================
-   FORMULARIO DE CONTACTO
-   Mecanismo original: se arma el mensaje y se abre WhatsApp (wa.me).
-   No hay endpoint ni claves en el cliente.
-   ============================================ */
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-// Teléfono Ecuador: 09XXXXXXXX o +5939XXXXXXXX
-const PHONE_RE = /^(09\d{8}|\+5939\d{8})$/;
-const SUBMIT_COOLDOWN_MS = 6000;
-
-function initializeContactForm() {
-    const form = document.getElementById('contactForm');
-    if (!form) return;
-
-    const status = document.getElementById('formStatus');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const phone = form.elements.telefono;
-    const email = form.elements.email;
-
-    function setStatus(message, type) {
-        if (!status) return;
-        status.textContent = message;
-        status.className = 'form-status' + (type ? ' is-' + type : '');
-    }
-
-    function validatePhone() {
-        const value = phone.value.trim();
-        const ok = value === '' || PHONE_RE.test(value);
-        phone.setCustomValidity(ok ? '' : 'Ingrese un teléfono válido: 09XXXXXXXX o +5939XXXXXXXX.');
-        return ok;
-    }
-
-    function validateEmail() {
-        const value = email.value.trim();
-        const ok = value === '' || EMAIL_RE.test(value);
-        email.setCustomValidity(ok ? '' : 'Ingrese un correo electrónico válido.');
-        return ok;
-    }
-
-    phone.addEventListener('input', validatePhone);
-    email.addEventListener('input', validateEmail);
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Honeypot: un humano nunca ve ni completa este campo
-        if (form.elements.sitio_web && form.elements.sitio_web.value !== '') {
-            form.reset();
-            return;
-        }
-
-        validatePhone();
-        validateEmail();
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            setStatus('Revise los campos marcados: hay datos incompletos o con formato inválido.', 'error');
-            return;
-        }
-
-        const nombre = form.elements.nombre.value.trim();
-        const mail = email.value.trim();
-        const telefono = phone.value.trim();
-        const servicioSelect = form.elements.servicio;
-        const servicio = servicioSelect.options[servicioSelect.selectedIndex].text;
-        const vehiculoSelect = form.elements.vehiculo;
-        const vehiculo = vehiculoSelect.value ? vehiculoSelect.options[vehiculoSelect.selectedIndex].text : '';
-        const mensaje = form.elements.mensaje.value.trim();
-
-        submitBtn.disabled = true;
-        submitBtn.setAttribute('aria-disabled', 'true');
-        setStatus('Preparando su solicitud…', 'info');
-
-        const whatsappMessage = [
-            '*SOLICITUD DE SERVICIO - LABORATORIO DIESEL MG*',
-            '',
-            `*Nombre:* ${nombre}`,
-            `*Email:* ${mail}`,
-            `*Teléfono:* ${telefono}`,
-            vehiculo ? `*Vehículo:* ${vehiculo}` : null,
-            `*Servicio:* ${servicio}`,
-            mensaje ? `*Descripción:*\n${mensaje}` : null,
-            '',
-            '_Enviado desde el formulario de contacto_'
-        ].filter(line => line !== null).join('\n');
-
-        try {
-            // Mismo destino que antes (wa.me/593), abierto con noopener
-            const link = document.createElement('a');
-            link.href = `https://wa.me/593988373185?text=${encodeURIComponent(whatsappMessage)}`;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-
-            setStatus('¡Gracias! Lo hemos redirigido a WhatsApp. Por favor, envíe el mensaje.', 'success');
-            form.reset();
-        } catch (err) {
-            setStatus('No pudimos abrir WhatsApp. Inténtelo de nuevo o escríbanos a los números de contacto.', 'error');
-        }
-
-        setTimeout(function() {
-            submitBtn.disabled = false;
-            submitBtn.removeAttribute('aria-disabled');
-        }, SUBMIT_COOLDOWN_MS);
     });
 }
 
