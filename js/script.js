@@ -254,7 +254,8 @@ function initializeReveals() {
     // se observan a través de su contenedor, que no está recortado.
     const watched = new Map();
     targets.forEach(function(el) {
-        const watchEl = el.hasAttribute('data-photo') ? el.parentElement : el;
+        // Las filas de tabla no reportan intersección: se observa su primera celda.
+        const watchEl = el.hasAttribute('data-photo') ? el.parentElement : (el.tagName === 'TR' ? el.firstElementChild : el);
         watched.set(watchEl, el);
     });
 
